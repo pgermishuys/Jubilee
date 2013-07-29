@@ -58,7 +58,6 @@ namespace Jubilee.Core
 			}
 			kernel.Bind<IRunner>().To(runner);
 			kernel.Bind<INotificationService>().To<NotificationService>();
-			kernel.Bind<FileSystemWatchingRunner>().ToSelf();
 			return kernel.Get<IRunner>();
 		}
 	}
