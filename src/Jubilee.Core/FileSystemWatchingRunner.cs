@@ -16,14 +16,12 @@ namespace Jubilee.Core
 	public class FileSystemWatchingRunner : IRunner
 	{
 		private IPlugin[] plugins;
-		private IKernel kernel;
 		private FileSystemWatcher watcher;
 		private string workingPath;
 		private INotificationService notificationService;
 
-		public FileSystemWatchingRunner(IKernel kernel, INotificationService notificationService, IPlugin[] plugins)
+		public FileSystemWatchingRunner(INotificationService notificationService, IPlugin[] plugins)
 		{
-			this.kernel = kernel;
 			this.notificationService = notificationService;
 			this.plugins = plugins;
 		}

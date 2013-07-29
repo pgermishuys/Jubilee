@@ -1,4 +1,5 @@
-﻿using Jubilee.Core.Notifications;
+﻿using Jubilee.Core.Messaging;
+using Jubilee.Core.Notifications;
 using Jubilee.Core.Notifications.Plugins;
 using Jubilee.Core.Process.Plugins;
 using Ninject;
@@ -16,6 +17,7 @@ namespace Jubilee.Core
 		private List<Type> plugins;
 		private List<Type> notificationPlugins;
 		private Type runner;
+		private Type messageBus;
 		private IKernel kernel;
 		public ConfigurationBuilder()
 		{
@@ -46,6 +48,11 @@ namespace Jubilee.Core
 			this.runner = typeof(T); 
 			return this;
 		}
+		public ConfigurationBuilder WithMessageBus<T>() where T : IMessageBus
+		{
+			this.messageBus = typeof(T);
+			return this;
+		}
 		public IRunner Build()
 		{
 			foreach (var plugin in plugins)
@@ -58,6 +65,7 @@ namespace Jubilee.Core
 			}
 			kernel.Bind<IRunner>().To(runner);
 			kernel.Bind<INotificationService>().To<NotificationService>();
+			kernel.Bind<IMessageBus>().To(messageBus);
 			return kernel.Get<IRunner>();
 		}
 	}

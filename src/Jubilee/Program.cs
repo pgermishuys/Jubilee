@@ -1,4 +1,5 @@
 ﻿using Jubilee.Core;
+using Jubilee.Core.Messaging;
 using Jubilee.Core.Notifications.Plugins;
 using Jubilee.Core.Process.Plugins;
 using Ninject;
@@ -22,7 +23,8 @@ namespace Jubilee
 										.WithPlugin<MSBuild>()
 										.WithPlugin<MSpecTestRunner>()
 										.WithPlugin<NUnitTestRunner>()
-										.WithRunner<FileSystemWatchingRunner>();
+										.WithRunner<FileSystemWatchingRunner>()
+										.WithMessageBus<InMemoryBus>();
 
 			var runner = configuration.Build();
 			runner.Run(workingPath);
