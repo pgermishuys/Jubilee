@@ -49,14 +49,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IRunner.cs" />
-    <Compile Include="Messaging\Event.cs" />
-    <Compile Include="Messaging\IEvent.cs" />
-    <Compile Include="Messaging\IEventHandler.cs" />
-    <Compile Include="Messaging\IMessage.cs" />
-    <Compile Include="Messaging\IMessageBus.cs" />
-    <Compile Include="Messaging\IMessageHandler.cs" />
-    <Compile Include="Messaging\InMemoryBus.cs" />
-    <Compile Include="Messaging\MessageHandler.cs" />
     <Compile Include="Notifications\NotificationType.cs" />
     <Compile Include="Process\Plugins\Extensions\CollectionExtensions.cs" />
     <Compile Include="Process\Plugins\MSBuild.cs" />
