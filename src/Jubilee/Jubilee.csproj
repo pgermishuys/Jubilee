@@ -32,45 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CoffeeScriptHttpHandler">
-      <HintPath>..\packages\CoffeeSharp.0.5\lib\CoffeeScriptHttpHandler.dll</HintPath>
-    </Reference>
     <Reference Include="Growl.Connector">
       <HintPath>..\packages\Growl.0.6\lib\Growl.Connector.dll</HintPath>
     </Reference>
     <Reference Include="Growl.CoreLibrary">
       <HintPath>..\packages\Growl.0.6\lib\Growl.CoreLibrary.dll</HintPath>
     </Reference>
-    <Reference Include="Jurassic">
-      <HintPath>..\packages\CoffeeSharp.0.5\lib\Jurassic.dll</HintPath>
-    </Reference>
-    <Reference Include="mspec-clr4">
-      <HintPath>..\packages\Machine.Specifications.0.5.12\tools\mspec-clr4.exe</HintPath>
-    </Reference>
     <Reference Include="Ninject, Version=3.0.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit-agent-x86">
-      <HintPath>..\packages\NUnit.Runners.2.6.2\tools\nunit-agent-x86.exe</HintPath>
-    </Reference>
-    <Reference Include="nunit-console-runner, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.Runners.2.6.2\tools\lib\nunit-console-runner.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit-console-x86">
-      <HintPath>..\packages\NUnit.Runners.2.6.2\tools\nunit-console-x86.exe</HintPath>
-    </Reference>
-    <Reference Include="nunit.core, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.Runners.2.6.2\tools\lib\nunit.core.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.core.interfaces, Version=2.6.2.12296, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NUnit.Runners.2.6.2\tools\lib\nunit.core.interfaces.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.Runners.2.6.2\tools\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
