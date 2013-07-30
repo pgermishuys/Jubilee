@@ -5,7 +5,9 @@ using Ninject;
 using Ninject.Modules;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,11 +20,19 @@ namespace Jubilee.Core
 		{
 			kernel = new StandardKernel();
 		}
-		public ConfigurationBuilder ScanAssembliesForPlugins(string[] assemblyNames)
+		public ConfigurationBuilder ScanAssembliesForPlugins(params string[] assemblyNames)
 		{
 			foreach (var assemblyName in assemblyNames)
 			{
-
+				if (File.Exists(assemblyName))
+				{
+					var loadedAssembly = Assembly.LoadFile(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, assemblyName));
+					var plugins = loadedAssembly.GetTypes().Where(x => typeof(IPlugin).IsAssignableFrom(x) && x.IsClass);
+					foreach (var plugin in plugins)
+					{
+						kernel.Bind<IPlugin>().To(plugin);
+					}
+				}
 			}
 			return this;
 		}
