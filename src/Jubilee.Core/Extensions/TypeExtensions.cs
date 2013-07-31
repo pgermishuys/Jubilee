@@ -17,5 +17,10 @@ namespace Jubilee.Core.Extensions
 			}
 			return false;
 		}
+
+		public static Type GetType(this Type[] typesToSearch, string typeName)
+		{
+			return typesToSearch.FirstOrDefault(x => x.Name.StartsWith(typeName));
+		}
 	}
 }
