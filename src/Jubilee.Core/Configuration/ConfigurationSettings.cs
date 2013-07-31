@@ -11,6 +11,7 @@ namespace Jubilee.Core.Configuration
 		public RunnerConfiguration RunnerConfiguration { get; protected set; }
 		public IEnumerable<PluginConfiguration> PluginsConfiguration { get; protected set; }
 		public IEnumerable<NotificationConfiguration> NotificationsConfiguration { get; protected set; }
+		public ConfigurationSettings() { }
 		public ConfigurationSettings(RunnerConfiguration runnerConfiguration, IEnumerable<PluginConfiguration> pluginsConfiguration, IEnumerable<NotificationConfiguration> notificationsConfiguration)
 		{
 			this.RunnerConfiguration = runnerConfiguration;

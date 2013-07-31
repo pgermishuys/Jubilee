@@ -27,7 +27,7 @@ namespace Jubilee.Core.Configuration
 		public ConfigurationBuilder()
 		{
 			this.scanner = new AssemblyScanner();
-			this.serializer = new Jubilee.Core.Serialization.JsonSerializer();
+			this.serializer = new Jubilee.Core.Serialization.YamlSerializer();
 			this.kernel = new StandardKernel();
 		}
 		public ConfigurationBuilder(string settingsFilePath) :this()

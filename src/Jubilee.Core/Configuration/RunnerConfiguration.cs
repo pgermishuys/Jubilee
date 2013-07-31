@@ -9,6 +9,7 @@ namespace Jubilee.Core.Configuration
 	public class RunnerConfiguration
 	{
 		public string Name { get; protected set; }
+		public RunnerConfiguration() { }
 		public RunnerConfiguration(string name)
 		{
 			this.Name = name;

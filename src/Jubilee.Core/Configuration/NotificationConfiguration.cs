@@ -9,6 +9,7 @@ namespace Jubilee.Core.Configuration
 	public class NotificationConfiguration
 	{
 		public string Name { get; protected set; }
+		public NotificationConfiguration() { }
 		public NotificationConfiguration(string name)
 		{
 			this.Name = name;

@@ -49,6 +49,15 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="YamlDotNet.Converters">
+      <HintPath>..\packages\YamlDotNet.Converters.2.0.0\lib\net35\YamlDotNet.Converters.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet.Core">
+      <HintPath>..\packages\YamlDotNet.Core.2.0.1\lib\net35\YamlDotNet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet.RepresentationModel">
+      <HintPath>..\packages\YamlDotNet.RepresentationModel.2.0.1\lib\net35\YamlDotNet.RepresentationModel.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\ConfigurationSettings.cs" />
@@ -75,6 +84,7 @@
     <Compile Include="Scanners\IScanner.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
     <Compile Include="Serialization\JsonSerializer.cs" />
+    <Compile Include="Serialization\YamlSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
