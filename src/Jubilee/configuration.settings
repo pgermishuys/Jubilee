@@ -1,0 +1,19 @@
+﻿{
+   "RunnerConfiguration":{
+      "Name":"FileSystemWatchingRunner"
+   },
+   "PluginsConfiguration":[
+      {
+         "Name":"MSBuild",
+         "DependentPlugins":[
+            {
+               "Name":"MSpecTestRunner"
+            }
+         ]
+      }
+   ],
+   "NotificationsConfiguration": [
+   	  { "Name" : "ConsoleNotification"},
+   	  { "Name" : "GrowlNotification"}
+   ]
+}

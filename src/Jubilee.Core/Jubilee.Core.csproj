@@ -36,6 +36,9 @@
     <Reference Include="Growl.CoreLibrary">
       <HintPath>..\packages\Growl.0.6\lib\Growl.CoreLibrary.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
@@ -48,22 +51,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\ConfigurationSettings.cs" />
+    <Compile Include="Configuration\NotificationConfiguration.cs" />
+    <Compile Include="Configuration\PluginConfiguration.cs" />
+    <Compile Include="Configuration\RunnerConfiguration.cs" />
+    <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="IRunner.cs" />
     <Compile Include="Notifications\NotificationType.cs" />
-    <Compile Include="Process\Plugins\Extensions\CollectionExtensions.cs" />
     <Compile Include="Process\Plugins\MSBuild.cs" />
     <Compile Include="Notifications\Plugins\ConsoleNotification.cs" />
     <Compile Include="Notifications\Plugins\GrowlNotification.cs" />
     <Compile Include="Process\Plugins\IDependsOnPlugin.cs" />
     <Compile Include="Notifications\Plugins\INotificationPlugin.cs" />
     <Compile Include="Notifications\INotificationService.cs" />
-    <Compile Include="ConfigurationBuilder.cs" />
+    <Compile Include="Configuration\ConfigurationBuilder.cs" />
     <Compile Include="Process\Plugins\IPlugin.cs" />
     <Compile Include="Process\Plugins\MSpecTestRunner.cs" />
     <Compile Include="Notifications\NotificationService.cs" />
     <Compile Include="Process\Plugins\NUnitTestRunner.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FileSystemWatchingRunner.cs" />
+    <Compile Include="Scanners\AssemblyScanner.cs" />
+    <Compile Include="Scanners\IScanner.cs" />
+    <Compile Include="Serialization\ISerializer.cs" />
+    <Compile Include="Serialization\JsonSerializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

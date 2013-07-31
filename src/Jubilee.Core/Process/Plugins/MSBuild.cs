@@ -1,4 +1,5 @@
 ﻿using Jubilee.Core.Notifications;
+using Ninject;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -12,7 +13,6 @@ namespace Jubilee.Core.Process.Plugins
 		private const string net4MSBuildPath = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
 
 		private INotificationService notificationService;
-
 		public MSBuild(INotificationService notificationService)
 		{
 			this.notificationService = notificationService;

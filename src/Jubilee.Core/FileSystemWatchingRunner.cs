@@ -8,7 +8,6 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Timers;
-using Jubilee.Core.Process.Plugins.Extensions;
 using Jubilee.Core.Notifications;
 
 namespace Jubilee.Core
@@ -19,9 +18,10 @@ namespace Jubilee.Core
 		private FileSystemWatcher watcher;
 		private string workingPath;
 		private INotificationService notificationService;
-
-		public FileSystemWatchingRunner(INotificationService notificationService, IPlugin[] plugins)
+		private IKernel kernel;
+		public FileSystemWatchingRunner(IKernel kernel, INotificationService notificationService, IPlugin[] plugins)
 		{
+			this.kernel = kernel;
 			this.notificationService = notificationService;
 			this.plugins = plugins;
 		}
@@ -42,7 +42,7 @@ namespace Jubilee.Core
 		private void FileSystemChanged(object sender, FileSystemEventArgs e)
 		{
 			watcher.EnableRaisingEvents = false;
-			foreach (var plugin in plugins.NonDependentPlugins())
+			foreach (var plugin in kernel.GetAll<IPlugin>())
 			{
 				Run(plugin, plugins, workingPath);
 			};
@@ -54,10 +54,12 @@ namespace Jubilee.Core
 			var canProcessDependentPlugins = plugin.Process(workingPath);
 			if (!canProcessDependentPlugins)
 				return;
-
-			foreach (var dependentPlugin in plugin.DependentPlugins(plugins))
+			var openGenericType = typeof(IDependsOnPlugin<>);
+			var closedGenericType = openGenericType.MakeGenericType(plugin.GetType());
+			var dependentPlugins = kernel.GetAll(closedGenericType);
+			foreach (dynamic dependentPlugin in dependentPlugins)
 			{
-				Run(dependentPlugin, plugins, workingPath);
+				dependentPlugin.Process(workingPath);
 			}
 		}
 	}

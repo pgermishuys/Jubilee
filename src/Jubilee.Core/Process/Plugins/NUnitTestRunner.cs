@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Jubilee.Core.Process.Plugins
 {
-	public class NUnitTestRunner : IPlugin, IDependsOnPlugin<MSBuild>
+	public class NUnitTestRunner : IPlugin
 	{
 		private string testRunnerExecutableName = @"nunit-console-x86.exe";
 		private INotificationService notificationService;
