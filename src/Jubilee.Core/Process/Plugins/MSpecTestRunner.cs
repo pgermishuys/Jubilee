@@ -32,8 +32,7 @@ namespace Jubilee.Core.Process.Plugins
 			if (testAssemblies.Count() == 0)
 				return result;
 
-			var testRunnerPath = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, testRunnerExecutableName, SearchOption.AllDirectories).FirstOrDefault();
-			testRunnerPath = @"F:\projects\crossfit\packages\Machine.Specifications.0.5.12\tools\mspec-clr4.exe";
+			var testRunnerPath = Directory.GetFiles(workingPath, testRunnerExecutableName, SearchOption.AllDirectories).FirstOrDefault();
 			if (String.IsNullOrEmpty(testRunnerPath))
 			{
 				result = false;
