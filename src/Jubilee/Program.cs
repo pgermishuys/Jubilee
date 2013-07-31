@@ -18,12 +18,6 @@ namespace Jubilee
 		{
 			string workingPath = args.FirstOrDefault() ?? @"F:\projects\crossfit";
 			var configuration = new ConfigurationBuilder("configuration.settings");
-			//var configuration = new ConfigurationBuilder()
-			//							.ScanAssembliesForPlugins("Jubilee.Core.dll")
-			//							.WithNotificationPlugin<GrowlNotification>()
-			//							.WithNotificationPlugin<ConsoleNotification>()
-			//							.WithRunner<FileSystemWatchingRunner>();
-
 			var runner = configuration.Build();
 			runner.Run(workingPath);
 			System.Console.ReadLine();
