@@ -32,7 +32,7 @@ namespace Jubilee.Core.Process.Plugins
 			if (testAssemblies.Count() == 0)
 				return result;
 
-			var testRunnerPath = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, testRunnerExecutableName, SearchOption.AllDirectories).FirstOrDefault();
+			var testRunnerPath = Directory.GetFiles(workingPath, testRunnerExecutableName, SearchOption.AllDirectories).FirstOrDefault();
 			if (String.IsNullOrEmpty(testRunnerPath))
 			{
 				result = false;
