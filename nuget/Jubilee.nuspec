@@ -20,8 +20,8 @@
     </dependencies>
   </metadata>
   <files>
-  		<file src="configuration.yaml" target="configuration.yaml">
-  		<file src="Jubilee.exe" target="Jubilee.exe">
-  		<file src="Jubilee.Core.dll" target="Jubilee.Core.dll">
+  		<file src="configuration.yaml" target="configuration.yaml"/>
+  		<file src="Jubilee.exe" target="Jubilee.exe"/>
+  		<file src="Jubilee.Core.dll" target="Jubilee.Core.dll"/>
   </files>
 </package>
