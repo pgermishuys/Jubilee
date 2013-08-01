@@ -17,7 +17,7 @@ namespace Jubilee
 		static void Main(string[] args)
 		{
 			string workingPath = args.FirstOrDefault() ?? AppDomain.CurrentDomain.BaseDirectory;
-			var configuration = new ConfigurationBuilder("configuration.json");
+			var configuration = new ConfigurationBuilder("configuration.yaml");
 			var runner = configuration.Build();
 			runner.Run(workingPath);
 			System.Console.ReadLine();
