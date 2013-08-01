@@ -16,7 +16,7 @@ namespace Jubilee
 	{
 		static void Main(string[] args)
 		{
-			string workingPath = args.FirstOrDefault() ?? @"F:\projects\crossfit";
+			string workingPath = args.FirstOrDefault() ?? AppDomain.CurrentDomain.BaseDirectory;
 			var configuration = new ConfigurationBuilder("configuration.json");
 			var runner = configuration.Build();
 			runner.Run(workingPath);
