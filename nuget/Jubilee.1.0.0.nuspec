@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata>
+        <id>Jubilee</id>
+        <version>1.0.0</version>
+        <authors>Pieter Germishuys</authors>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Jubilee aims to assist the developer in minimizing the effort to automate their workflows.</description>
+    </metadata>
+    <files>
+        <file src="readme.txt" target="content\readme.txt" />
+        <file src="configuration.yaml" target="src\configuration.yaml" />
+        <file src="Jubilee.Core.dll" target="src\Jubilee.Core.dll" />
+        <file src="Jubilee.exe" target="src\Jubilee.exe" />
+        <file src="Ninject.dll" target="src\Ninject.dll" />
+        <file src="Growl.Connector.dll" target="src\Growl.Connector.dll" />
+        <file src="Growl.CoreLibrary.dll" target="src\Growl.CoreLibrary.dll" />
+        <file src="YamlDotNet.Core.dll" target="src\YamlDotNet.Core.dll" />
+        <file src="YamlDotNet.RepresentationModel.dll" target="src\YamlDotNet.RepresentationModel.dll" />
+        <file src="init.ps1" target="tools\init.ps1" />
+        <file src="uninstall.ps1" target="tools\uninstall.ps1" />
+    </files>
+</package>
