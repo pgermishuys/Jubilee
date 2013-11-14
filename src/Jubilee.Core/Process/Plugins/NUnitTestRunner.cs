@@ -44,14 +44,15 @@ namespace Jubilee.Core.Process.Plugins
 			{
 				var processOutput = RunProcess(testRunnerPath, testAssembly);
 				var specificationResults = ParseResultsFromTest(processOutput);
+				if (numberOfTestsFailed > 0)
+				{
+					notificationService.Notify(String.Format("(NUnit) - {0} contains failing tests", Path.GetFileName(testAssembly)), message: String.Format("{0} tests failed", numberOfTestsFailed), notificationType: NotificationType.Error);
+				}
 				foreach (var specificationResult in specificationResults)
 				{
 					result = false;
 					numberOfTestsFailed++;
-				}
-				if (numberOfTestsFailed > 0)
-				{
-					notificationService.Notify(String.Format("(NUnit) - {0} contains failing tests", Path.GetFileName(testAssembly)), message: String.Format("{0} tests failed", numberOfTestsFailed), notificationType: NotificationType.Error);
+					notificationService.Notify(String.Format("{0} - {1}", specificationResult.Context, specificationResult.Specification), message: specificationResult.Detail, notificationType: NotificationType.Error);
 				}
 				numberOfTestsFailed = 0;
 			}
