@@ -59,7 +59,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="configuration.yaml">
-      <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>configuration.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -79,9 +78,8 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <PropertyGroup>
-    <PostBuildEvent>copy $(TargetDir)\*.dll $(SolutionDir)\..\nuget\
-copy $(TargetDir)\Jubilee.exe $(SolutionDir)\..\nuget\
-copy $(TargetDir)\configuration.yaml $(SolutionDir)\..\nuget\configuration.yaml</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

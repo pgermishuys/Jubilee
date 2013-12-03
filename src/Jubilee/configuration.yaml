@@ -3,7 +3,8 @@
 PluginsConfiguration:
 - Name: MSBuild
   DependentPlugins:
-  - Name: MSpecTestRunner
+  - Name: FileCopy
+    Parameters: F:\research\Watching\src\SAHL.Core\SAHL.Core\bin\Debug->F:\research\Watching\src\SAHL.Core.Console\SAHL.Core.Console\bin\Debug
 NotificationsConfiguration:
 - Name: ConsoleNotification
 - Name: GrowlNotification

@@ -7,13 +7,13 @@ using System.Linq;
 
 namespace Jubilee.Core.Process.Plugins
 {
-	public class MSBuild : Plugin, IPlugin
+	public class MSBuild2013 : Plugin, IPlugin
 	{
 		private const string buildArguments = "/verbosity:quiet /nologo /clp:ErrorsOnly";
-		private const string net4MSBuildPath = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
+		private const string net4MSBuildPath = @"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe";
 
 		private INotificationService notificationService;
-		public MSBuild(INotificationService notificationService)
+		public MSBuild2013(INotificationService notificationService)
 		{
 			this.notificationService = notificationService;
 		}
@@ -30,25 +30,7 @@ namespace Jubilee.Core.Process.Plugins
 
 		private string FindSolutionFile(string workingPath, string solutionExtension)
 		{
-			var solutionDirectory = DirectorySearch(workingPath, solutionExtension);
-			return Directory.GetFiles(solutionDirectory, solutionExtension).FirstOrDefault();
-		}
-
-		private string DirectorySearch(string directoryToSearch, string solutionExtension)
-		{
-			if (new DirectoryInfo(directoryToSearch).Parent == null)
-			{
-				return null;
-			}
-			if (Directory.GetFiles(directoryToSearch, solutionExtension).Count() == 0)
-			{
-				var parentDirectory = Directory.GetParent(directoryToSearch);
-				return DirectorySearch(parentDirectory.FullName, solutionExtension);
-			}
-			else
-			{
-				return directoryToSearch;
-			}
+			return Directory.GetFiles(workingPath, solutionExtension).FirstOrDefault();
 		}
 
 		private bool BuildSolution(string solutionFilePath, string buildArguments)

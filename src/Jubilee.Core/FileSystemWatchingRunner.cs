@@ -19,6 +19,7 @@ namespace Jubilee.Core
 		private string workingPath;
 		private INotificationService notificationService;
 		private IKernel kernel;
+		static string[] fileExtensionsWhiteList = new string[] { ".cs", ".coffee", ".rb", ".html", ".cshtml", ".js", ".css", ".fs" };
 		public FileSystemWatchingRunner(IKernel kernel, INotificationService notificationService, IPlugin[] plugins)
 		{
 			this.kernel = kernel;
@@ -32,21 +33,25 @@ namespace Jubilee.Core
 			watcher = new FileSystemWatcher(workingPath, filePatternToWatch);
 			watcher.IncludeSubdirectories = true;
 			watcher.EnableRaisingEvents = true;
-			watcher.NotifyFilter = NotifyFilters.LastWrite;
+			watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
 			watcher.Changed += new FileSystemEventHandler(FileSystemChanged);
 			watcher.Created += new FileSystemEventHandler(FileSystemChanged);
+			watcher.Renamed += FileSystemChanged;
 
 			notificationService.Notify(String.Format("Watching {0}", workingPath));
 		}
 
 		private void FileSystemChanged(object sender, FileSystemEventArgs e)
 		{
-			watcher.EnableRaisingEvents = false;
-			foreach (var plugin in kernel.GetAll<IPlugin>())
+			if (fileExtensionsWhiteList.Contains(Path.GetExtension(e.FullPath)) && System.IO.File.Exists(e.FullPath))
 			{
-				Run(plugin, plugins, workingPath);
-			};
-			watcher.EnableRaisingEvents = true;
+				watcher.EnableRaisingEvents = false;
+				foreach (var plugin in kernel.GetAll<IPlugin>())
+				{
+					Run(plugin, plugins, Path.GetDirectoryName(e.FullPath));
+				};
+				watcher.EnableRaisingEvents = true;
+			}
 		}
 
 		private void Run(IPlugin plugin, IEnumerable<IPlugin> plugins, string workingPath)

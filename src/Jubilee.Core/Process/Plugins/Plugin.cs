@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Jubilee.Core.Process.Plugins
 {
-	public interface IPlugin
+	public abstract class Plugin
 	{
-		string Parameters { get; set; }
-		bool Process(string workingPath);
+		public string Parameters { get; set; }
 	}
 }
