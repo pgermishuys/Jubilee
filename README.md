@@ -20,7 +20,7 @@ It then has the option of running dependency plugins such as copying files.
 
 Sample Configuration
 ====================
-RunnerConfiguration:
+`RunnerConfiguration:
   Name: FileSystemWatchingRunner
 PluginsConfiguration:
 - Name: MSBuild
@@ -29,4 +29,4 @@ PluginsConfiguration:
     Parameters: C:\SomeFolder->F:\AnotherFolder
 NotificationsConfiguration:
 - Name: ConsoleNotification
-- Name: GrowlNotification
+- Name: GrowlNotification`
