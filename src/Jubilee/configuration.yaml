@@ -4,7 +4,7 @@ PluginsConfiguration:
 - Name: MSBuild
   DependentPlugins:
   - Name: FileCopy
-    Parameters: F:\research\Watching\src\SAHL.Core\SAHL.Core\bin\Debug->F:\research\Watching\src\SAHL.Core.Console\SAHL.Core.Console\bin\Debug
+    Parameters: C:\SomeFolder->F:\AnotherFolder
 NotificationsConfiguration:
 - Name: ConsoleNotification
 - Name: GrowlNotification
