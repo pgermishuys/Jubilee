@@ -15,5 +15,5 @@ namespace Jubilee.Core.Serialization
 			var deserializer = new Deserializer();
 			return deserializer.Deserialize<T>(new StringReader(json));
 		}
-	}
+    }
 }

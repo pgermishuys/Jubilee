@@ -56,19 +56,17 @@ namespace Jubilee.Core.Configuration
 		public void RegisterPlugin(Type[] knownTypes, PluginConfiguration pluginConfiguration, IEnumerable<PluginConfiguration> pluginsConfiguration)
 		{
 			var plugin = knownTypes.GetType(pluginConfiguration.Name);
-			kernel.Bind<IPlugin>().To(plugin);
+			kernel.Bind<IPlugin>().To(plugin).OnActivation((activatedPlugin)=>{
+                ((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
+            });
 			foreach (var pluginConfig in pluginsConfiguration)
 			{
 				var openGenericPluginType = typeof(IDependsOnPlugin<>);
 				var closedGenericPluginType = openGenericPluginType.MakeGenericType(plugin);
-				if (!String.IsNullOrEmpty(pluginConfig.Parameters))
-				{
-					kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name.StartsWith(pluginConfig.Name))).WithConstructorArgument("parameters", pluginConfig.Parameters);
-				}
-				else
-				{
-					kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name.StartsWith(pluginConfig.Name)));
-				}
+                kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name.StartsWith(pluginConfig.Name))).OnActivation((activatedPlugin) =>
+                {
+                    ((dynamic)activatedPlugin).Initialise(pluginConfig.Parameters);
+                });
 			}
 		}
 		public void RegisterNotification(Type[] knownTypes, NotificationConfiguration notificationConfiguration)

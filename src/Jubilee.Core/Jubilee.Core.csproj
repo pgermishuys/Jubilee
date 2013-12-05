@@ -66,6 +66,7 @@
     <Compile Include="Configuration\NotificationConfiguration.cs" />
     <Compile Include="Configuration\PluginConfiguration.cs" />
     <Compile Include="Configuration\RunnerConfiguration.cs" />
+    <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="IRunner.cs" />
     <Compile Include="Notifications\NotificationType.cs" />
@@ -88,7 +89,6 @@
     <Compile Include="Scanners\AssemblyScanner.cs" />
     <Compile Include="Scanners\IScanner.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
-    <Compile Include="Serialization\JsonSerializer.cs" />
     <Compile Include="Serialization\YamlSerializer.cs" />
   </ItemGroup>
   <ItemGroup>

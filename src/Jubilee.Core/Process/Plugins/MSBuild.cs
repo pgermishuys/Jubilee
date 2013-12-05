@@ -81,5 +81,5 @@ namespace Jubilee.Core.Process.Plugins
 			}
 			return result;
 		}
-	}
+    }
 }

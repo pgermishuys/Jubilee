@@ -2,6 +2,7 @@
 using Jubilee.Core.Configuration;
 using Jubilee.Core.Notifications.Plugins;
 using Jubilee.Core.Process.Plugins;
+using Jubilee.Core.Serialization;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace Jubilee
 	{
 		static void Main(string[] args)
 		{
+            args = new string[]{@"C:\research\ConsoleApplication1\ConsoleApplication1\ConsoleApplication1"};
 			string workingPath = args.FirstOrDefault() ?? AppDomain.CurrentDomain.BaseDirectory;
 			var configuration = new ConfigurationBuilder("configuration.yaml");
 			var runner = configuration.Build();

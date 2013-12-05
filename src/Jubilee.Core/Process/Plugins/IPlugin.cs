@@ -8,7 +8,7 @@ namespace Jubilee.Core.Process.Plugins
 {
 	public interface IPlugin
 	{
-		string Parameters { get; set; }
+        void Initialise(Dictionary<string, object> parameters);
 		bool Process(string workingPath);
 	}
 }

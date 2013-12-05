@@ -20,7 +20,7 @@ namespace Jubilee.Core.Process.Plugins
 
 		public bool Process(string workingPath)
 		{
-			string solutionPath = FindSolutionFile(workingPath, "*.sln");
+            string solutionPath = FindSolutionFile(workingPath, "*.sln");
 			if (String.IsNullOrEmpty(solutionPath))
 			{
 				throw new FileNotFoundException("Solution File could not be found");

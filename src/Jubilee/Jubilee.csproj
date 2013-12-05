@@ -63,11 +63,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
-    <None Include="configuration.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>configuration1.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Jubilee.Core\Jubilee.Core.csproj">

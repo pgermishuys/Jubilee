@@ -9,20 +9,11 @@ namespace Jubilee.Core.Process.Plugins
 {
 	public class FileCopy : Plugin, IPlugin
 	{
-		private string from;
-		private string to;
-		public FileCopy(string parameters)
-		{
-			this.Parameters = parameters;
-			var fromAndTo = Parameters.Split(new[] { "->" }, StringSplitOptions.None);
-			from = fromAndTo[0];
-			to = fromAndTo[1];
-		}
 		public bool Process(string workingPath)
 		{
 			try
 			{
-				CopyDirectory(from, to);
+				CopyDirectory(parameters.From, parameters.To);
 			}
 			catch
 			{
@@ -50,5 +41,5 @@ namespace Jubilee.Core.Process.Plugins
 				CopyDirectory(folder, dest);
 			}
 		}
-	}
+    }
 }

@@ -4,7 +4,9 @@ PluginsConfiguration:
 - Name: MSBuild
   DependentPlugins:
   - Name: FileCopy
-    Parameters: C:\SomeFolder->F:\AnotherFolder
+    Parameters:
+      From: SomeFolder
+      To: AnotherFolder
 NotificationsConfiguration:
 - Name: ConsoleNotification
 - Name: GrowlNotification
