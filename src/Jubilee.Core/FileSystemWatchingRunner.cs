@@ -49,7 +49,7 @@ namespace Jubilee.Core
 				foreach (var plugin in kernel.GetAll<IPlugin>())
 				{
 					Run(plugin, plugins, Path.GetDirectoryName(e.FullPath));
-				};
+				}
 				watcher.EnableRaisingEvents = true;
 			}
 		}
