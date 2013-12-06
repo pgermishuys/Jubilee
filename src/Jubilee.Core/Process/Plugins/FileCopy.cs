@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Jubilee.Core.Process.Plugins
 {
-	public class FileCopy : Plugin, IPlugin
+	public class FileCopy : Plugin
 	{
-		public bool Process(string workingPath)
+		public override bool Process(string workingPath)
 		{
 			try
 			{

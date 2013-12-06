@@ -7,12 +7,13 @@ using Jubilee.Core.Extensions;
 
 namespace Jubilee.Core.Process.Plugins
 {
-	public abstract class Plugin
+	public abstract class Plugin : IPlugin
 	{
         protected dynamic parameters;
         public void Initialise(Dictionary<string, object> parameters)
         {
             this.parameters = parameters.ToExpando();
         }
+        public abstract bool Process(string workingDirectory);
 	}
 }

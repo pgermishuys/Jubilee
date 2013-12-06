@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace Jubilee.Core.Process.Plugins
 {
-	public class MSpecTestRunner : Plugin, IPlugin
+	public class MSpecTestRunner : Plugin
 	{
 		private string testRunnerExecutableName = @"mspec-clr4.exe";
 		private INotificationService notificationService;
@@ -18,7 +18,7 @@ namespace Jubilee.Core.Process.Plugins
 			this.notificationService = notificationService;
 		}
 
-		public bool Process(string workingPath)
+		public override bool Process(string workingPath)
 		{
 			return RunTests(workingPath);
 		}

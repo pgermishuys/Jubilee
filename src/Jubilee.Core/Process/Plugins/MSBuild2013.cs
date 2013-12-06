@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace Jubilee.Core.Process.Plugins
 {
-	public class MSBuild2013 : Plugin, IPlugin
+	public class MSBuild2013 : Plugin
 	{
 		private const string buildArguments = "/verbosity:quiet /nologo /clp:ErrorsOnly";
 		private const string net4MSBuildPath = @"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe";
@@ -18,7 +18,7 @@ namespace Jubilee.Core.Process.Plugins
 			this.notificationService = notificationService;
 		}
 
-		public bool Process(string workingPath)
+		public override bool Process(string workingPath)
 		{
             string solutionPath = FindSolutionFile(workingPath, "*.sln");
 			if (String.IsNullOrEmpty(solutionPath))
