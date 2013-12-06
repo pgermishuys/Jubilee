@@ -14,9 +14,9 @@ namespace Jubilee.Core.Notifications
 
 		public void Notify(string title, string message = "", NotificationType notificationType = NotificationType.None)
 		{
-			Parallel.ForEach(notificationPlugins, (plugin) =>
+			Parallel.ForEach(notificationPlugins, (notificationPlugin) =>
 			{
-				plugin.Notify(title, message, notificationType);
+				notificationPlugin.Notify(title, message, notificationType);
 			});
 		}
 	}
