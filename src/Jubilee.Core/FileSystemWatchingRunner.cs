@@ -15,7 +15,7 @@ namespace Jubilee.Core
 	public class FileSystemWatchingRunner : IRunner
 	{
 		private IPluginProvider pluginProvider;
-		private FileSystemWatcher watcher;
+		private FileSystemWatcher fileSystemWatcher;
 		private string workingPath;
 		private INotificationService notificationService;
 		static string[] fileExtensionsWhiteList = new string[] { ".cs", ".coffee", ".rb", ".html", ".cshtml", ".js", ".css", ".fs" };
@@ -28,13 +28,13 @@ namespace Jubilee.Core
 		public void Run(string workingPath, string filePatternToWatch = "*.*")
 		{
 			this.workingPath = workingPath;
-			watcher = new FileSystemWatcher(workingPath, filePatternToWatch);
-			watcher.IncludeSubdirectories = true;
-			watcher.EnableRaisingEvents = true;
-			watcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
-			watcher.Changed += new FileSystemEventHandler(FileSystemChanged);
-			watcher.Created += new FileSystemEventHandler(FileSystemChanged);
-			watcher.Renamed += FileSystemChanged;
+			fileSystemWatcher = new FileSystemWatcher(workingPath, filePatternToWatch);
+			fileSystemWatcher.IncludeSubdirectories = true;
+			fileSystemWatcher.EnableRaisingEvents = true;
+			fileSystemWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
+			fileSystemWatcher.Changed += new FileSystemEventHandler(FileSystemChanged);
+			fileSystemWatcher.Created += new FileSystemEventHandler(FileSystemChanged);
+			fileSystemWatcher.Renamed += FileSystemChanged;
 
 			notificationService.Notify(String.Format("Watching {0}", workingPath));
 		}
@@ -43,12 +43,12 @@ namespace Jubilee.Core
 		{
 			if (fileExtensionsWhiteList.Contains(Path.GetExtension(e.FullPath)) && System.IO.File.Exists(e.FullPath))
 			{
-				watcher.EnableRaisingEvents = false;
+				fileSystemWatcher.EnableRaisingEvents = false;
 				foreach (var plugin in pluginProvider.GetAll())
 				{
 					Run(plugin, new Context(Path.GetDirectoryName(e.FullPath), e.FullPath));
 				}
-				watcher.EnableRaisingEvents = true;
+				fileSystemWatcher.EnableRaisingEvents = true;
 			}
 		}
 
