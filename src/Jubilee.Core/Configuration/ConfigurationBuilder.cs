@@ -63,7 +63,7 @@ namespace Jubilee.Core.Configuration
 			{
 				var openGenericPluginType = typeof(IDependsOnPlugin<>);
 				var closedGenericPluginType = openGenericPluginType.MakeGenericType(plugin);
-                kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name.StartsWith(pluginConfig.Name))).OnActivation((activatedPlugin) =>
+                kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name == pluginConfig.Name)).OnActivation((activatedPlugin) =>
                 {
                     ((dynamic)activatedPlugin).Initialise(pluginConfig.Parameters);
                 });
