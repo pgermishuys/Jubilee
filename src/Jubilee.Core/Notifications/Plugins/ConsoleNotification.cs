@@ -28,7 +28,7 @@ namespace Jubilee.Core.Notifications.Plugins
 			}
 
 			Console.WriteLine(title);
-			Console.WriteLine("--------------------------------");
+			Console.WriteLine(String.Empty);
 
 			System.Console.ForegroundColor = ConsoleColor.White;
 
