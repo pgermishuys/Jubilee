@@ -56,7 +56,8 @@ namespace Jubilee.Core
 
 		private void Run(IPlugin plugin, IEnumerable<IPlugin> plugins, string workingPath)
 		{
-			var canProcessDependentPlugins = plugin.Process(workingPath);
+            plugin.AddParameter(new KeyValuePair<string, object>("WorkingPath", workingPath));
+			var canProcessDependentPlugins = plugin.Run();
 			if (!canProcessDependentPlugins)
 				return;
 			var openGenericType = typeof(IDependsOnPlugin<>);
@@ -64,7 +65,8 @@ namespace Jubilee.Core
 			var dependentPlugins = kernel.GetAll(closedGenericType);
 			foreach (dynamic dependentPlugin in dependentPlugins)
 			{
-				dependentPlugin.Process(workingPath);
+                dependentPlugin.AddParameter(new KeyValuePair<string, object>("WorkingPath", workingPath));
+				dependentPlugin.Run();
 			}
 		}
 	}

@@ -9,7 +9,7 @@ namespace Jubilee.Core.Process.Plugins
 {
 	public class FileCopy : Plugin
 	{
-		public override bool Process(string workingPath)
+		public override bool Run()
 		{
 			try
 			{

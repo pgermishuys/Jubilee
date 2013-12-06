@@ -9,6 +9,7 @@ namespace Jubilee.Core.Process.Plugins
 	public interface IPlugin
 	{
         void Initialise(Dictionary<string, object> parameters);
-		bool Process(string workingPath);
+        void AddParameter(KeyValuePair<string, object> parameter);
+		bool Run();
 	}
 }

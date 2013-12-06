@@ -18,9 +18,9 @@ namespace Jubilee.Core.Process.Plugins
 			this.notificationService = notificationService;
 		}
 
-		public override bool Process(string workingPath)
+		public override bool Run()
 		{
-			return RunTests(workingPath);
+			return RunTests(parameters.WorkingPath);
 		}
 
 		public bool RunTests(string workingPath)

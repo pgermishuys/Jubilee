@@ -18,9 +18,9 @@ namespace Jubilee.Core.Process.Plugins
 			this.notificationService = notificationService;
 		}
 
-		public override bool Process(string workingPath)
+		public override bool Run()
 		{
-            string solutionPath = FindSolutionFile(workingPath, "*.sln");
+            string solutionPath = FindSolutionFile(parameters.WorkingPath, "*.sln");
 			if (String.IsNullOrEmpty(solutionPath))
 			{
 				throw new FileNotFoundException("Solution File could not be found");
