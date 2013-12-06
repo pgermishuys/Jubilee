@@ -10,19 +10,26 @@ namespace Jubilee.Core.Process.Plugins
 {
 	public abstract class Plugin : IPlugin
 	{
-        protected dynamic parameters;
-        public Plugin()
-        {
-            parameters = new ExpandoObject();
-        }
-        public void Initialise(Dictionary<string, object> parameters)
-        {
-            this.parameters = parameters.ToExpando();
-        }
-        public void AddParameter(KeyValuePair<string, object> parameter)
-        {
-            ((IDictionary<string, object>)this.parameters).Add(parameter.Key, parameter.Value);
-        }
-        public abstract bool Run();
+		protected dynamic parameters;
+		public Plugin()
+		{
+			parameters = new ExpandoObject();
+		}
+		public void Initialise(Dictionary<string, object> parameters)
+		{
+			this.parameters = parameters.ToExpando();
+		}
+		public void AddParameter(KeyValuePair<string, object> parameter)
+		{
+			((IDictionary<string, object>)this.parameters).Add(parameter.Key, parameter.Value);
+		}
+		public void AddParameters(Dictionary<string, object> parameters)
+		{
+			foreach (var parameter in parameters)
+			{
+				((IDictionary<string, object>)this.parameters).Add(parameter.Key, parameter.Value);
+			}
+		}
+		public abstract bool Run();
 	}
 }

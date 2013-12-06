@@ -14,17 +14,15 @@ namespace Jubilee.Core
 {
 	public class FileSystemWatchingRunner : IRunner
 	{
-		private IPlugin[] plugins;
+		private IPluginProvider pluginProvider;
 		private FileSystemWatcher watcher;
 		private string workingPath;
 		private INotificationService notificationService;
-		private IKernel kernel;
 		static string[] fileExtensionsWhiteList = new string[] { ".cs", ".coffee", ".rb", ".html", ".cshtml", ".js", ".css", ".fs" };
-		public FileSystemWatchingRunner(IKernel kernel, INotificationService notificationService, IPlugin[] plugins)
+		public FileSystemWatchingRunner(INotificationService notificationService, IPluginProvider pluginProvider)
 		{
-			this.kernel = kernel;
 			this.notificationService = notificationService;
-			this.plugins = plugins;
+			this.pluginProvider = pluginProvider;
 		}
 
 		public void Run(string workingPath, string filePatternToWatch = "*.*")
@@ -46,27 +44,50 @@ namespace Jubilee.Core
 			if (fileExtensionsWhiteList.Contains(Path.GetExtension(e.FullPath)) && System.IO.File.Exists(e.FullPath))
 			{
 				watcher.EnableRaisingEvents = false;
-				foreach (var plugin in kernel.GetAll<IPlugin>())
+				foreach (var plugin in pluginProvider.GetAll())
 				{
-					Run(plugin, plugins, Path.GetDirectoryName(e.FullPath));
+					Run(plugin, new Context(Path.GetDirectoryName(e.FullPath), e.FullPath));
 				}
 				watcher.EnableRaisingEvents = true;
 			}
 		}
 
-		private void Run(IPlugin plugin, IEnumerable<IPlugin> plugins, string workingPath)
+		private void Run(IPlugin plugin, Context context)
 		{
-            plugin.AddParameter(new KeyValuePair<string, object>("WorkingPath", workingPath));
+			AddParametersForPlugin(plugin, context.ToDictionary());
 			var canProcessDependentPlugins = plugin.Run();
 			if (!canProcessDependentPlugins)
 				return;
-			var openGenericType = typeof(IDependsOnPlugin<>);
-			var closedGenericType = openGenericType.MakeGenericType(plugin.GetType());
-			var dependentPlugins = kernel.GetAll(closedGenericType);
+			var dependentPlugins = pluginProvider.GetDependentPluginsOn(plugin);
 			foreach (dynamic dependentPlugin in dependentPlugins)
 			{
-                dependentPlugin.AddParameter(new KeyValuePair<string, object>("WorkingPath", workingPath));
+				AddParametersForPlugin(dependentPlugin, context.ToDictionary());
 				dependentPlugin.Run();
+			}
+		}
+
+		private void AddParametersForPlugin(IPlugin plugin, Dictionary<string, object> parameters)
+		{
+			plugin.AddParameters(parameters);
+		}
+
+		private class Context
+		{
+			public string WorkingPath { get; set; }
+			public string ChangedFilePath { get; set; }
+			public Context(string workingPath, string changedFilePath)
+			{
+				this.WorkingPath = workingPath;
+				this.ChangedFilePath = changedFilePath;
+			}
+			public Dictionary<string, object> ToDictionary()
+			{
+				var dictionary = new Dictionary<string, object>();
+				foreach (var property in this.GetType().GetProperties())
+				{
+					dictionary.Add(property.Name, property.GetValue(this));
+				}
+				return dictionary;
 			}
 		}
 	}

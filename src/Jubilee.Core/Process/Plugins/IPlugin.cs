@@ -10,6 +10,7 @@ namespace Jubilee.Core.Process.Plugins
 	{
         void Initialise(Dictionary<string, object> parameters);
         void AddParameter(KeyValuePair<string, object> parameter);
+		void AddParameters(Dictionary<string, object> parameter);
 		bool Run();
 	}
 }

@@ -36,6 +36,9 @@ namespace Jubilee.Core.Configuration
 			{
 				throw new Exception(String.Format("The settings file provided does not exist in the following location : {0}", settingsFilePath));
 			}
+
+			kernel.Bind<IPluginProvider>().To<PluginProvider>();
+
 			var configurationSettings = serializer.Deserialize<ConfigurationSettings>(File.ReadAllText(settingsFilePath));
 			
 			var types = scanner.GetTypes(AppDomain.CurrentDomain.BaseDirectory, "*.dll", typeof(IPlugin), typeof(INotificationPlugin), typeof(IRunner));
