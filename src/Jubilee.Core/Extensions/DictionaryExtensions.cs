@@ -19,10 +19,8 @@ namespace Jubilee.Core.Extensions
             var expando = new ExpandoObject();
             var expandoDic = (IDictionary<string, object>)expando;
 
-            // go through the items in the dictionary and copy over the key value pairs)
             foreach (var kvp in dictionary)
             {
-                // if the value can also be turned into an ExpandoObject, then do it!
                 if (kvp.Value is IDictionary<string, object>)
                 {
                     var expandoValue = ((IDictionary<string, object>)kvp.Value).ToExpando();
@@ -30,8 +28,6 @@ namespace Jubilee.Core.Extensions
                 }
                 else if (kvp.Value is ICollection)
                 {
-                    // iterate through the collection and convert any strin-object dictionaries
-                    // along the way into expando objects
                     var itemList = new List<object>();
                     foreach (var item in (ICollection)kvp.Value)
                     {
