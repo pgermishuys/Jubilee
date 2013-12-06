@@ -8,15 +8,15 @@ namespace Jubilee.Core.Configuration
 {
 	public class ConfigurationSettings
 	{
-		public RunnerConfiguration RunnerConfiguration { get; protected set; }
-		public IEnumerable<PluginConfiguration> PluginsConfiguration { get; protected set; }
-		public IEnumerable<NotificationConfiguration> NotificationsConfiguration { get; protected set; }
+		public RunnerConfiguration Runner { get; protected set; }
+		public IEnumerable<PluginConfiguration> Plugins { get; protected set; }
+		public IEnumerable<NotificationConfiguration> Notifications { get; protected set; }
 		public ConfigurationSettings() { }
 		public ConfigurationSettings(RunnerConfiguration runnerConfiguration, IEnumerable<PluginConfiguration> pluginsConfiguration, IEnumerable<NotificationConfiguration> notificationsConfiguration)
 		{
-			this.RunnerConfiguration = runnerConfiguration;
-			this.PluginsConfiguration = pluginsConfiguration;
-			this.NotificationsConfiguration = notificationsConfiguration;
+			this.Runner = runnerConfiguration;
+			this.Plugins = pluginsConfiguration;
+			this.Notifications = notificationsConfiguration;
 
 		}
 	}

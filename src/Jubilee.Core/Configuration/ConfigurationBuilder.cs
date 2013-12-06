@@ -43,15 +43,15 @@ namespace Jubilee.Core.Configuration
 			
 			var types = scanner.GetTypes(AppDomain.CurrentDomain.BaseDirectory, "*.dll", typeof(IPlugin), typeof(INotificationPlugin), typeof(IRunner));
 
-			var runnerType = types.GetType(configurationSettings.RunnerConfiguration.Name);
+			var runnerType = types.GetType(configurationSettings.Runner.Name);
 			kernel.Bind<IRunner>().To(runnerType);
 
-			foreach (var notificationConfiguration in configurationSettings.NotificationsConfiguration)
+			foreach (var notificationConfiguration in configurationSettings.Notifications)
 			{
 				RegisterNotification(types, notificationConfiguration);
 			}
 
-			foreach (var pluginConfiguration in configurationSettings.PluginsConfiguration)
+			foreach (var pluginConfiguration in configurationSettings.Plugins)
 			{
 				RegisterPlugin(types, pluginConfiguration, pluginConfiguration.DependentPlugins);
 			}

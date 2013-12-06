@@ -1,12 +1,12 @@
-﻿RunnerConfiguration:
+﻿Runner:
   Name: FileSystemWatchingRunner
-PluginsConfiguration:
+Plugins:
 - Name: MSBuild
   DependentPlugins:
   - Name: FileCopy
     Parameters:
-      From: SomeFolder
-      To: AnotherFolder
-NotificationsConfiguration:
+      From: From
+      To: To
+Notifications:
 - Name: ConsoleNotification
 - Name: GrowlNotification

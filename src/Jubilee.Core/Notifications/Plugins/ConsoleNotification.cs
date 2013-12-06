@@ -28,12 +28,10 @@ namespace Jubilee.Core.Notifications.Plugins
 			}
 
 			Console.WriteLine(title);
-			Console.WriteLine(String.Empty);
 
 			System.Console.ForegroundColor = ConsoleColor.White;
-
-			Console.WriteLine(message);
 			Console.WriteLine();
+			Console.WriteLine(message);
 
 			System.Console.ForegroundColor = originalColor;
 		}
