@@ -21,13 +21,13 @@ It then has the option of running dependency plugins such as copying files.
 Sample Configuration
 ====================
 ```
-RunnerConfiguration:
+Runner:
   Name: FileSystemWatchingRunner
-PluginsConfiguration:
+Plugins:
 - Name: MSBuild
   DependentPlugins:
   - Name: FileCopy
     Parameters: C:\SomeFolder->F:\AnotherFolder
-NotificationsConfiguration:
+Notifications:
 - Name: ConsoleNotification
 - Name: GrowlNotification```
