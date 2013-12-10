@@ -32,7 +32,7 @@ namespace Jubilee.Core.Process.Plugins
 			foreach (string file in Directory.GetFiles(sourcePath))
 			{
 				string dest = Path.Combine(destinationPath, Path.GetFileName(file));
-				File.Copy(file, dest);
+				File.Copy(file, dest, true);
 			}
 
 			foreach (string folder in Directory.GetDirectories(sourcePath))
