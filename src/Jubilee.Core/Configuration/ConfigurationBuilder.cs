@@ -58,20 +58,38 @@ namespace Jubilee.Core.Configuration
 		}
 		public void RegisterPlugin(Type[] knownTypes, PluginConfiguration pluginConfiguration, IEnumerable<PluginConfiguration> pluginsConfiguration)
 		{
-			var plugin = knownTypes.GetType(pluginConfiguration.Name);
-			kernel.Bind<IPlugin>().To(plugin).OnActivation((activatedPlugin)=>{
-                ((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
-            });
-			foreach (var pluginConfig in pluginsConfiguration)
+			if (pluginConfiguration.Name.EndsWith("csx"))
 			{
-				var openGenericPluginType = typeof(IDependsOnPlugin<>);
-				var closedGenericPluginType = openGenericPluginType.MakeGenericType(plugin);
-                kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name == pluginConfig.Name)).OnActivation((activatedPlugin) =>
-                {
-                    ((dynamic)activatedPlugin).Initialise(pluginConfig.Parameters);
-                });
+				RegisterScriptCSPlugin(pluginConfiguration);
+			}
+			else
+			{
+				var plugin = knownTypes.GetType(pluginConfiguration.Name);
+				kernel.Bind<IPlugin>().To(plugin).OnActivation((activatedPlugin) =>
+				{
+					((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
+				});
+				foreach (var pluginConfig in pluginsConfiguration)
+				{
+					var openGenericPluginType = typeof(IDependsOnPlugin<>);
+					var closedGenericPluginType = openGenericPluginType.MakeGenericType(plugin);
+					kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name == pluginConfig.Name)).OnActivation((activatedPlugin) =>
+					{
+						((dynamic)activatedPlugin).Initialise(pluginConfig.Parameters);
+					});
+				}
 			}
 		}
+
+		private void RegisterScriptCSPlugin(PluginConfiguration pluginConfiguration)
+		{
+			kernel.Bind<IPlugin>().To<ScriptCSPlugin>().OnActivation((activatedPlugin) =>
+			{
+				((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
+				((dynamic)activatedPlugin).AddParameter("ScriptName", pluginConfiguration.Name);
+			});
+		}
+
 		public void RegisterNotification(Type[] knownTypes, NotificationConfiguration notificationConfiguration)
 		{
 			var notificationType = knownTypes.GetType(notificationConfiguration.Name);

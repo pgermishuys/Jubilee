@@ -19,6 +19,10 @@ namespace Jubilee.Core.Process.Plugins
 		{
 			this.parameters = parameters.ToExpando();
 		}
+		public void AddParameter(string parameterName, object parameterValue)
+		{
+			AddParameter(new KeyValuePair<string, object>(parameterName, parameterValue));
+		}
 		public void AddParameter(KeyValuePair<string, object> parameter)
 		{
 			((IDictionary<string, object>)this.parameters).Add(parameter.Key, parameter.Value);

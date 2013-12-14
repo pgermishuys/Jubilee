@@ -1,6 +1,7 @@
 ﻿Runner:
   Name: FileSystemWatchingRunner
 Plugins:
+- Name: ConsoleWriter.csx
 - Name: MSBuild
   DependentPlugins:
   - Name: FileCopy
