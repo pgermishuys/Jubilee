@@ -29,7 +29,17 @@ namespace Jubilee.Core.Process.Plugins
 
 			string errors = process.StandardError.ReadToEnd();
 			string output = process.StandardOutput.ReadToEnd();
-			notificationService.Notify("ScriptCS Output", output, NotificationType.Information);
+
+			if (!String.IsNullOrEmpty(errors))
+			{
+				notificationService.Notify(parameters.ScriptName, errors, NotificationType.Error);
+				return false;
+			}
+			if (output.ToLowerInvariant().Contains("error"))
+			{
+				notificationService.Notify(parameters.ScriptName, output, NotificationType.Error);
+				return false;
+			}
 			return true;
 		}
 	}
