@@ -30,7 +30,8 @@ namespace Jubilee.Core.Configuration
 			this.serializer = new Jubilee.Core.Serialization.YamlSerializer();
 			this.kernel = new StandardKernel();
 		}
-		public ConfigurationBuilder(string settingsFilePath) : this()
+		public ConfigurationBuilder(string settingsFilePath)
+			: this()
 		{
 			if (!File.Exists(settingsFilePath))
 			{
@@ -40,7 +41,7 @@ namespace Jubilee.Core.Configuration
 			kernel.Bind<IPluginProvider>().To<PluginProvider>();
 
 			var configurationSettings = serializer.Deserialize<ConfigurationSettings>(File.ReadAllText(settingsFilePath));
-			
+
 			var types = scanner.GetTypes(AppDomain.CurrentDomain.BaseDirectory, "*.dll", typeof(IPlugin), typeof(INotificationPlugin), typeof(IRunner));
 
 			var runnerType = types.GetType(configurationSettings.Runner.Name);

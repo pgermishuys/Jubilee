@@ -11,7 +11,9 @@ namespace Jubilee.Core.Configuration
 		public string Name { get; protected set; }
 		public Dictionary<string, object> Parameters { get; set; }
 		public IEnumerable<PluginConfiguration> DependentPlugins { get; protected set; }
-		public PluginConfiguration() { }
+		public PluginConfiguration() {
+			DependentPlugins = new PluginConfiguration[] { };
+		}
 		public PluginConfiguration(string name, Dictionary<string, object> parameters, params PluginConfiguration[] dependentPlugins)
 		{
 			this.Name = name;
