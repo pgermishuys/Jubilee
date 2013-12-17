@@ -1,13 +1,7 @@
 ﻿Runner:
   Name: FileSystemWatchingRunner
 Plugins:
-- Name: ConsoleWriter.csx
 - Name: MSBuild
-  DependentPlugins:
-  - Name: FileCopy
-    Parameters:
-      From: From
-      To: To
 Notifications:
 - Name: ConsoleNotification
 - Name: GrowlNotification
