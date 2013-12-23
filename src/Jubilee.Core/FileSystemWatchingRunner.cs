@@ -36,7 +36,7 @@ namespace Jubilee.Core
 			fileSystemWatcher.Created += new FileSystemEventHandler(FileSystemChanged);
 			fileSystemWatcher.Renamed += FileSystemChanged;
 
-			notificationService.Notify(String.Format("Watching {0}", workingPath));
+			notificationService.Notify(String.Format("watching {0}", workingPath));
 		}
 
 		private void FileSystemChanged(object sender, FileSystemEventArgs e)

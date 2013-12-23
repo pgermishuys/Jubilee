@@ -1,9 +1,11 @@
 ﻿using Jubilee.Core;
 using Jubilee.Core.Configuration;
+using Jubilee.Core.Notifications;
 using Jubilee.Core.Notifications.Plugins;
 using Jubilee.Core.Process.Plugins;
 using Jubilee.Core.Serialization;
 using Ninject;
+using PowerArgs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +19,13 @@ namespace Jubilee
 	{
 		static void Main(string[] args)
 		{
-			string workingPath = args.FirstOrDefault() ?? AppDomain.CurrentDomain.BaseDirectory;
-			var configuration = new ConfigurationBuilder("configuration.yaml");
-			var runner = configuration.Build();
-			runner.Run(workingPath);
-			System.Console.ReadLine();
+			var parsedArguments = Args.Parse<JubileeArgs>(args);
+			var commandFactory = new CommandFactory();
+			var command = commandFactory.Create(parsedArguments);
+			if (command != null)
+			{
+				command.Execute();
+			}
 		}
 	}
 }
