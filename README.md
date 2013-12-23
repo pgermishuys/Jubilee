@@ -10,10 +10,23 @@ Jubilee aims to assist the developer in minimizing the effort to automate their 
 Getting Started.
 ================
 
-Setting up your workflow
-Jubilee has a default configuration file "configuration.yaml" which gives you an example of a workflow.
+Ask Jubilee for some help
 
-Jubilee assumes that you will be watching the folder it was dropped in if you do not supply a path name. It will then monitor for changes and if will build the visual studio solution it finds.
+```
+Jubilee.exe -?
+```
+
+Scaffold a new ScriptCS Plugin
+
+```
+Jubilee.exe -s YourPluginName
+```
+
+Ask Jubilee to start watching a directory
+
+```
+Jubilee.exe -f c:\DirectoryPathToWatch
+```
 
 With Jubilee, you can define dependent plugins. Let's suppose you want to copy files after a successful build. The configuration below shows how to wire up dependent plugins.
 
