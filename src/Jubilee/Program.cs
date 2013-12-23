@@ -19,7 +19,16 @@ namespace Jubilee
 	{
 		static void Main(string[] args)
 		{
-			var parsedArguments = Args.Parse<JubileeArgs>(args);
+			JubileeArgs parsedArguments = null;
+			try
+			{
+				parsedArguments = Args.Parse<JubileeArgs>(args);
+			}
+			catch (PowerArgs.UnexpectedArgException ex)
+			{
+				Console.WriteLine(ex.Message);
+				return;
+			}
 			var commandFactory = new CommandFactory();
 			var command = commandFactory.Create(parsedArguments);
 			if (command != null)
