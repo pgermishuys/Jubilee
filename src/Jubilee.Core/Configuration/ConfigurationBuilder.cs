@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Jubilee.Core.Extensions;
 using Jubilee.Core.Scanners;
+using Jubilee.Core.Process;
 
 namespace Jubilee.Core.Configuration
 {

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jubilee.Core.Notifications
+namespace Jubilee.Core.Process
 {
 	public class PluginProvider : IPluginProvider
 	{
