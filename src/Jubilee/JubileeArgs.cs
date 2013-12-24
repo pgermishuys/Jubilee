@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Jubilee
 {
-	[ArgExample("jubilee pathToWatch", "asks jubilee to watch the given path for changes and kick off the workflow defined in the configuration.yaml")]
+	[ArgExample("jubilee -f c:/PathToWatch", "asks jubilee to watch the given path for changes and kick off the workflow defined in the configuration.yaml")]
 	public class JubileeArgs
 	{
 		[ArgShortcut("f")]
