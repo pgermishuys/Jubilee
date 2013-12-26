@@ -22,12 +22,6 @@ Scaffold a new ScriptCS Plugin
 Jubilee.exe -s YourPluginName
 ```
 
-Ask Jubilee to start watching a directory
-
-```
-Jubilee.exe -f c:\DirectoryPathToWatch
-```
-
 With Jubilee, you can define dependent plugins. Let's suppose you want to copy files after a successful build. The configuration below shows how to wire up dependent plugins.
 
 Sample Configuration
@@ -35,11 +29,15 @@ Sample Configuration
 ```
 Runner:
   Name: FileSystemWatchingRunner
+  Parameters:
+    FolderToWatch: f:\SomeFolderToMonitorForChanges
 Plugins:
 - Name: MSBuild
   DependentPlugins:
   - Name: FileCopy
-    Parameters: C:\SomeFolder->F:\AnotherFolder
+    Parameters: 
+       From: f:\SomeDirectory
+       To: f:\SomeOtherDirectory
 Notifications:
 - Name: ConsoleNotification
 - Name: GrowlNotification
@@ -47,12 +45,14 @@ Notifications:
 
 ScriptCS Support
 ====================
-Jubilee has the ability to run scripts via ScriptCS. The contextual information, such as which folder is being watched as well as the file that changed will be passed as arguments. (This is assuming the FileSystemWatchingRunner is being used).
+Jubilee has the ability to run scripts via ScriptCS. The contextual information, such as which directory is being watched as well as the file that changed will be passed to the script. (This is assuming the FileSystemWatchingRunner is being used).
 
 Example Jubilee ScriptCS Configuration
 ```
 Runner:
   Name: FileSystemWatchingRunner
+  Parameters:
+    FolderToWatch: f:\SomeFolderToMonitorForChanges
 Plugins:
 - Name: ConsoleWriter.csx
 Notifications:
