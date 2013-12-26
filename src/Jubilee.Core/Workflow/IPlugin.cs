@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jubilee.Core.Process.Plugins
+namespace Jubilee.Core.Plugins
 {
 	public interface IPlugin
 	{

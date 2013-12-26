@@ -68,27 +68,28 @@
     <Compile Include="Configuration\RunnerConfiguration.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
-    <Compile Include="IRunner.cs" />
-    <Compile Include="Process\IPluginProvider.cs" />
+    <Compile Include="Runners\IRunner.cs" />
+    <Compile Include="Workflow\IPluginProvider.cs" />
     <Compile Include="Notifications\NotificationType.cs" />
-    <Compile Include="Process\PluginProvider.cs" />
-    <Compile Include="Process\Plugins\FileCopy.cs" />
-    <Compile Include="Process\Plugins\MSBuild2013.cs" />
-    <Compile Include="Process\Plugins\MSBuild.cs" />
-    <Compile Include="Notifications\Plugins\ConsoleNotification.cs" />
-    <Compile Include="Notifications\Plugins\GrowlNotification.cs" />
-    <Compile Include="Process\Plugins\IDependsOnPlugin.cs" />
-    <Compile Include="Notifications\Plugins\INotificationPlugin.cs" />
+    <Compile Include="Workflow\PluginProvider.cs" />
+    <Compile Include="Workflow\Plugins\FileCopy.cs" />
+    <Compile Include="Workflow\Plugins\MSBuild2013.cs" />
+    <Compile Include="Workflow\Plugins\MSBuild.cs" />
+    <Compile Include="Notifications\ConsoleNotification.cs" />
+    <Compile Include="Notifications\GrowlNotification.cs" />
+    <Compile Include="Workflow\IDependsOnPlugin.cs" />
+    <Compile Include="Notifications\INotificationPlugin.cs" />
     <Compile Include="Notifications\INotificationService.cs" />
     <Compile Include="Configuration\ConfigurationBuilder.cs" />
-    <Compile Include="Process\Plugins\IPlugin.cs" />
-    <Compile Include="Process\Plugins\MSpecTestRunner.cs" />
+    <Compile Include="Workflow\IPlugin.cs" />
+    <Compile Include="Workflow\Plugins\MSpecTestRunner.cs" />
     <Compile Include="Notifications\NotificationService.cs" />
-    <Compile Include="Process\Plugins\NUnitTestRunner.cs" />
-    <Compile Include="Process\Plugins\Plugin.cs" />
-    <Compile Include="Process\Plugins\ScriptCSPlugin.cs" />
+    <Compile Include="Workflow\Plugins\NUnitTestRunner.cs" />
+    <Compile Include="Workflow\Plugin.cs" />
+    <Compile Include="Workflow\Plugins\ScriptCSPlugin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="FileSystemWatchingRunner.cs" />
+    <Compile Include="Runners\FileSystemWatchingRunner.cs" />
+    <Compile Include="Runners\Runner.cs" />
     <Compile Include="Scanners\AssemblyScanner.cs" />
     <Compile Include="Scanners\IScanner.cs" />
     <Compile Include="Serialization\ISerializer.cs" />
@@ -102,6 +103,7 @@
   <ItemGroup>
     <Content Include="license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

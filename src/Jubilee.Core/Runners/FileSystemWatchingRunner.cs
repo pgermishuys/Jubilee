@@ -1,4 +1,4 @@
-﻿using Jubilee.Core.Process.Plugins;
+﻿using Jubilee.Core.Plugins;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -11,13 +11,13 @@ using System.Timers;
 using Jubilee.Core.Notifications;
 using Jubilee.Core.Process;
 
-namespace Jubilee.Core
+namespace Jubilee.Core.Runners
 {
-	public class FileSystemWatchingRunner : IRunner
+	public class FileSystemWatchingRunner : Runner
 	{
 		private IPluginProvider pluginProvider;
 		private FileSystemWatcher fileSystemWatcher;
-		private string workingPath;
+		private string folderToWatch;
 		private INotificationService notificationService;
 		static string[] fileExtensionsWhiteList = new string[] { ".cs", ".coffee", ".rb", ".html", ".cshtml", ".js", ".css", ".fs" };
 		public FileSystemWatchingRunner(INotificationService notificationService, IPluginProvider pluginProvider)
@@ -26,10 +26,10 @@ namespace Jubilee.Core
 			this.pluginProvider = pluginProvider;
 		}
 
-		public void Run(string workingPath, string filePatternToWatch = "*.*")
+		public override void Run()
 		{
-			this.workingPath = workingPath;
-			fileSystemWatcher = new FileSystemWatcher(workingPath, filePatternToWatch);
+			this.folderToWatch = parameters.FolderToWatch;
+			fileSystemWatcher = new FileSystemWatcher(folderToWatch, "*.*");
 			fileSystemWatcher.IncludeSubdirectories = true;
 			fileSystemWatcher.EnableRaisingEvents = true;
 			fileSystemWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite | NotifyFilters.FileName | NotifyFilters.DirectoryName;
@@ -37,7 +37,7 @@ namespace Jubilee.Core
 			fileSystemWatcher.Created += new FileSystemEventHandler(FileSystemChanged);
 			fileSystemWatcher.Renamed += FileSystemChanged;
 
-			notificationService.Notify(String.Format("watching {0}", workingPath));
+			notificationService.Notify(String.Format("watching {0}", folderToWatch));
 		}
 
 		private void FileSystemChanged(object sender, FileSystemEventArgs e)
@@ -56,6 +56,7 @@ namespace Jubilee.Core
 		private void Run(IPlugin plugin, Context context)
 		{
 			AddParametersForPlugin(plugin, context.ToDictionary());
+			notificationService.Notify(plugin.GetType().Name, "Running");
 			var canProcessDependentPlugins = plugin.Run();
 			if (!canProcessDependentPlugins)
 				return;

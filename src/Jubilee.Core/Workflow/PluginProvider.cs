@@ -1,4 +1,4 @@
-﻿using Jubilee.Core.Process.Plugins;
+﻿using Jubilee.Core.Plugins;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -15,12 +15,12 @@ namespace Jubilee.Core.Process
 		{
 			this.kernel = kernel;
 		}
-		public IEnumerable<Process.Plugins.IPlugin> GetAll()
+		public IEnumerable<Plugins.IPlugin> GetAll()
 		{
 			return kernel.GetAll<IPlugin>();
 		}
 
-		public IEnumerable<IPlugin> GetDependentPluginsOn(Process.Plugins.IPlugin plugin)
+		public IEnumerable<IPlugin> GetDependentPluginsOn(Plugins.IPlugin plugin)
 		{
 			var openGenericType = typeof(IDependsOnPlugin<>);
 			var closedGenericType = openGenericType.MakeGenericType(plugin.GetType());

@@ -10,10 +10,6 @@ namespace Jubilee
 	[ArgExample("jubilee -w c:/PathToWatch", "asks jubilee to watch the given path for changes and kick off the workflow defined in the configuration.yaml")]
 	public class JubileeArgs
 	{
-		[ArgShortcut("w")]
-		[ArgDescription("the folder for jubilee to monitor.")]
-		public string FolderToMonitor { get; set; }
-
 		[ArgShortcut("?")]
 		[ArgDescription("displays the jubilee help.")]
 		public bool Help { get; set; }

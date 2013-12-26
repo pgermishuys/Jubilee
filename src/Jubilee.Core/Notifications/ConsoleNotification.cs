@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Jubilee.Core.Notifications.Plugins
+namespace Jubilee.Core.Notifications
 {
 	public class ConsoleNotification : INotificationPlugin
 	{

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jubilee.Core.Notifications.Plugins
+namespace Jubilee.Core.Notifications
 {
 	public class GrowlNotification : INotificationPlugin
 	{

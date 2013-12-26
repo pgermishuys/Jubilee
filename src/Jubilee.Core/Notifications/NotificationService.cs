@@ -1,5 +1,4 @@
-﻿using Jubilee.Core.Notifications.Plugins;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Jubilee.Core.Notifications
 {

@@ -5,8 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Jubilee.Core.Extensions;
 using System.Dynamic;
+using Jubilee.Core.Runners;
 
-namespace Jubilee.Core.Process.Plugins
+namespace Jubilee.Core.Plugins
 {
 	public abstract class Plugin : IPlugin
 	{

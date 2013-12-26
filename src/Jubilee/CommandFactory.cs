@@ -19,10 +19,7 @@ namespace Jubilee
 			{
 				return new ScaffoldScriptCSPluginCommand(args.Scaffold);
 			}
-			if(!String.IsNullOrEmpty(args.FolderToMonitor))
-			{
-				return new RunJubileeCommand(args.FolderToMonitor);
-			}
+			return new RunJubileeCommand(args);
 			return new DisplayHelpCommand();
 		}
 	}

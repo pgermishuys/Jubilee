@@ -1,6 +1,5 @@
 ﻿using Jubilee.Core.Notifications;
-using Jubilee.Core.Notifications.Plugins;
-using Jubilee.Core.Process.Plugins;
+using Jubilee.Core.Plugins;
 using Jubilee.Core.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -17,6 +16,8 @@ using System.Threading.Tasks;
 using Jubilee.Core.Extensions;
 using Jubilee.Core.Scanners;
 using Jubilee.Core.Process;
+using Jubilee.Core.Runners;
+using Jubilee.Core.Workflow.Plugins;
 
 namespace Jubilee.Core.Configuration
 {
@@ -46,7 +47,10 @@ namespace Jubilee.Core.Configuration
 			var types = scanner.GetTypes(AppDomain.CurrentDomain.BaseDirectory, "*.dll", typeof(IPlugin), typeof(INotificationPlugin), typeof(IRunner));
 
 			var runnerType = types.GetType(configurationSettings.Runner.Name);
-			kernel.Bind<IRunner>().To(runnerType);
+			kernel.Bind<IRunner>().To(runnerType).OnActivation((activatedPlugin) =>
+			{
+				((dynamic)activatedPlugin).Initialise(configurationSettings.Runner.Parameters);
+			});
 
 			foreach (var notificationConfiguration in configurationSettings.Notifications)
 			{

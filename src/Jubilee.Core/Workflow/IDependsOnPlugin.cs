@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jubilee.Core
+namespace Jubilee.Core.Plugins
 {
-	public interface IRunner
+	public interface IDependsOnPlugin<Plugin> where Plugin : IPlugin
 	{
-		void Run(string workingPath, string filePatternToWatch = "*.*");
 	}
 }

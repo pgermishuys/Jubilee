@@ -1,4 +1,5 @@
 ﻿using Jubilee.Core.Notifications;
+using Jubilee.Core.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Jubilee.Core.Process.Plugins
+namespace Jubilee.Core.Workflow.Plugins
 {
 	public class MSpecTestRunner : Plugin
 	{

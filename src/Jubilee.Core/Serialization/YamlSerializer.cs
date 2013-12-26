@@ -10,10 +10,10 @@ namespace Jubilee.Core.Serialization
 {
 	public class YamlSerializer : ISerializer
 	{
-		public T Deserialize<T>(string json)
+		public T Deserialize<T>(string yaml)
 		{
 			var deserializer = new Deserializer();
-			return deserializer.Deserialize<T>(new StringReader(json));
+			return deserializer.Deserialize<T>(new StringReader(yaml));
 		}
     }
 }

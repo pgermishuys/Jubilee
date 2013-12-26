@@ -1,4 +1,4 @@
-﻿using Jubilee.Core.Process.Plugins;
+﻿using Jubilee.Core.Plugins;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Jubilee.Core.Plugins;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Jubilee.Core.Process.Plugins
+namespace Jubilee.Core.Workflow.Plugins
 {
 	public class FileCopy : Plugin
 	{

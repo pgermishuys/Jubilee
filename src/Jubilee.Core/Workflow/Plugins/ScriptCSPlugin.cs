@@ -7,8 +7,9 @@ using System.Diagnostics;
 using process = System.Diagnostics;
 using Jubilee.Core.Notifications;
 using Newtonsoft.Json;
+using Jubilee.Core.Plugins;
 
-namespace Jubilee.Core.Process.Plugins
+namespace Jubilee.Core.Workflow.Plugins
 {
 	public class ScriptCSPlugin : Plugin
 	{

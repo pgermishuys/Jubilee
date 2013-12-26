@@ -1,11 +1,12 @@
 ﻿using Jubilee.Core.Notifications;
+using Jubilee.Core.Plugins;
 using Ninject;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Jubilee.Core.Process.Plugins
+namespace Jubilee.Core.Workflow.Plugins
 {
 	public class MSBuild2013 : Plugin
 	{
