@@ -41,6 +41,10 @@ namespace Jubilee.Core.Workflow.Plugins
 				notificationService.Notify(parameters.ScriptName, output, NotificationType.Error);
 				return false;
 			}
+			else
+			{
+				notificationService.Notify(parameters.ScriptName, output, NotificationType.Information);
+			}
 			return true;
 		}
 	}
