@@ -18,6 +18,7 @@ namespace Jubilee.Commands
 
 		public void Execute()
 		{
+			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.WriteLine("Scaffolding jubilee scriptcs plugin");
 
 			var assemblyLocation = Assembly.GetExecutingAssembly().Location;
@@ -44,7 +45,9 @@ namespace Jubilee.Commands
 				}
 				File.WriteAllText("configuration.yaml", configurationBuilder.ToString());
 			}
+			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine(pluginName + " has been created and added to the configuration.yaml");
+			Console.ResetColor();
 		}
 	}
 }
