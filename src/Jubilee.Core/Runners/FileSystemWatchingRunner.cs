@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Timers;
 using Jubilee.Core.Notifications;
 using Jubilee.Core.Process;
+using Microsoft.CSharp.RuntimeBinder;
+using Jubilee.Core.Guards;
 
 namespace Jubilee.Core.Runners
 {
@@ -28,7 +30,11 @@ namespace Jubilee.Core.Runners
 
 		public override bool Run()
 		{
-			this.folderToWatch = parameters.FolderToWatch;
+			Guard.AgainstException<RuntimeBinderException>(() => 
+				this.folderToWatch = parameters.FolderToWatch,
+				"The FolderToWatch parameter was not found in the parameters. Ensure that the configuration file is correct.", 
+				notificationService);
+
 			if (!Directory.Exists(folderToWatch))
 			{
 				notificationService.Notify(this.GetType().Name, String.Format("The directory {0} does not exist and cannot be watched", folderToWatch), NotificationType.Information);

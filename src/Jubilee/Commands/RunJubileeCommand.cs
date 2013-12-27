@@ -1,4 +1,5 @@
 ﻿using Jubilee.Core.Configuration;
+using Jubilee.Core.Guards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,16 @@ namespace Jubilee.Commands
 				return;
 			}
 			var runner = configuration.Build();
-			if (runner.Run())
+			try
 			{
-				Console.ReadLine();
+				if (runner.Run())
+				{
+					Console.ReadLine();
+				}
+			}
+			catch (GuardException ex)
+			{
+				Console.WriteLine(ex.Message);
 			}
 		}
 	}

@@ -68,6 +68,8 @@
     <Compile Include="Configuration\RunnerConfiguration.cs" />
     <Compile Include="Extensions\DictionaryExtensions.cs" />
     <Compile Include="Extensions\TypeExtensions.cs" />
+    <Compile Include="Guards\Guard.cs" />
+    <Compile Include="Guards\GuardException.cs" />
     <Compile Include="Runners\IRunner.cs" />
     <Compile Include="Workflow\IPluginProvider.cs" />
     <Compile Include="Notifications\NotificationType.cs" />

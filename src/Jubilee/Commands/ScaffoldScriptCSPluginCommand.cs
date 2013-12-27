@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jubilee.Templates;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,12 +26,10 @@ namespace Jubilee.Commands
 			var directoryAssemblyLocatedIn = Path.GetDirectoryName(assemblyLocation);
 			var pathForNewPlugin = Path.Combine(directoryAssemblyLocatedIn, pluginName);
 
-			using (var writer = new StreamWriter(new FileStream(pathForNewPlugin, FileMode.Create)))
-			{
-				writer.WriteLine("var scriptBeingRun = ScriptArgs[0];");
-				writer.WriteLine("var folderBeingWatched = ScriptArgs[1];");
-				writer.WriteLine("var fileThatKickedOffTheWorkflow = ScriptArgs[2];");
-			}
+			ScriptCSTemplate template = new ScriptCSTemplate();
+			var transformedText = template.TransformText();
+			File.WriteAllText(pathForNewPlugin, transformedText);
+
 			if (File.Exists("configuration.yaml"))
 			{
 				var configurationFile = File.ReadAllText("configuration.yaml");
