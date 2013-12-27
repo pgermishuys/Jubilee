@@ -8,7 +8,12 @@ properties{
 }
 task default -depends Build
 
-task Build {
-   Write-Host "building..."
+task Build -depends Clean{
    exec { msbuild /m:$max_cpu_count /p:Configuration="$build_configuration" /p:Platform="Any CPU" /p:OutDir="$build_output_directory"\\ "$solution_file" }
 }
+
+ task Clean{
+ 	if(Test-Path $build_output_directory){
+ 		rd $build_output_directory -rec -force | out-null
+ 	}
+ }

@@ -29,6 +29,11 @@ namespace Jubilee.Core.Runners
 		public override void Run()
 		{
 			this.folderToWatch = parameters.FolderToWatch;
+			if (!Directory.Exists(folderToWatch))
+			{
+				notificationService.Notify(this.GetType().Name, String.Format("The directory {0} does not exist and cannot be watched", folderToWatch), NotificationType.Information);
+				return;
+			}
 			fileSystemWatcher = new FileSystemWatcher(folderToWatch, "*.*");
 			fileSystemWatcher.IncludeSubdirectories = true;
 			fileSystemWatcher.EnableRaisingEvents = true;
