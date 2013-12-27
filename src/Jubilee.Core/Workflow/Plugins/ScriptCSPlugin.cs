@@ -21,7 +21,7 @@ namespace Jubilee.Core.Workflow.Plugins
 		public override bool Run()
 		{
 			process.Process process = new process.Process();
-			process.StartInfo = new process.ProcessStartInfo("scriptcs", String.Format("-scriptname {0} -- {1}", parameters.ScriptName, String.Join(" ", ((IDictionary<string, object>)parameters).Select(x => x.Value))));
+			process.StartInfo = new process.ProcessStartInfo("scriptcs", String.Format("-scriptname {0} -- {1}", String.Format("\"{0}\"", parameters.ScriptName), String.Join(" ", ((IDictionary<string, object>)parameters).Select(x => x.Value))));
 			process.StartInfo.RedirectStandardError = true;
 			process.StartInfo.RedirectStandardOutput = true;
 			process.StartInfo.UseShellExecute = false;
@@ -41,7 +41,7 @@ namespace Jubilee.Core.Workflow.Plugins
 				notificationService.Notify(parameters.ScriptName, output, NotificationType.Error);
 				return false;
 			}
-			else
+			else if(!String.IsNullOrEmpty(output))
 			{
 				notificationService.Notify(parameters.ScriptName, output, NotificationType.Information);
 			}
