@@ -33,7 +33,10 @@ namespace Jubilee.Core.Extensions
 			{
 				dictionary.TryGetValue(binder.Name, out result);
 			}
-			result = default(object);
+			else
+			{
+				result = default(object);
+			}
 			return true;
 		}
 
