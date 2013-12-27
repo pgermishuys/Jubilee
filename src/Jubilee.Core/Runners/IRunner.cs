@@ -12,6 +12,6 @@ namespace Jubilee.Core.Runners
 		void AddParameter(string parameterName, object parameterValue);
 		void AddParameter(KeyValuePair<string, object> parameter);
 		void AddParameters(Dictionary<string, object> parameter);
-		void Run();
+		bool Run();
 	}
 }

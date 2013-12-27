@@ -30,8 +30,10 @@ namespace Jubilee.Commands
 				return;
 			}
 			var runner = configuration.Build();
-			runner.Run();
-			Console.ReadLine();
+			if (runner.Run())
+			{
+				Console.ReadLine();
+			}
 		}
 	}
 }

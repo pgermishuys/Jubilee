@@ -13,11 +13,11 @@ namespace Jubilee.Core.Runners
 		protected dynamic parameters;
 		public Runner()
 		{
-			parameters = new ExpandoObject();
+			parameters = new DynamicDictionary(new Dictionary<string,object>());
 		}
 		public void Initialise(Dictionary<string, object> parameters)
 		{
-			this.parameters = parameters.ToExpando();
+			this.parameters = parameters.ToDynamic();
 		}
 		public void AddParameter(string parameterName, object parameterValue)
 		{
@@ -34,6 +34,6 @@ namespace Jubilee.Core.Runners
 				((IDictionary<string, object>)this.parameters).Add(parameter.Key, parameter.Value);
 			}
 		}
-		public abstract void Run();
+		public abstract bool Run();
 	}
 }

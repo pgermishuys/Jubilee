@@ -26,13 +26,13 @@ namespace Jubilee.Core.Runners
 			this.pluginProvider = pluginProvider;
 		}
 
-		public override void Run()
+		public override bool Run()
 		{
 			this.folderToWatch = parameters.FolderToWatch;
 			if (!Directory.Exists(folderToWatch))
 			{
 				notificationService.Notify(this.GetType().Name, String.Format("The directory {0} does not exist and cannot be watched", folderToWatch), NotificationType.Information);
-				return;
+				return false;
 			}
 			fileSystemWatcher = new FileSystemWatcher(folderToWatch, "*.*");
 			fileSystemWatcher.IncludeSubdirectories = true;
@@ -43,6 +43,7 @@ namespace Jubilee.Core.Runners
 			fileSystemWatcher.Renamed += FileSystemChanged;
 
 			notificationService.Notify(String.Format("watching {0}", folderToWatch));
+			return true;
 		}
 
 		private void FileSystemChanged(object sender, FileSystemEventArgs e)

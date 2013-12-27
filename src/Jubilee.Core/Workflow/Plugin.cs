@@ -14,11 +14,11 @@ namespace Jubilee.Core.Plugins
 		protected dynamic parameters;
 		public Plugin()
 		{
-			parameters = new ExpandoObject();
+			parameters = new DynamicDictionary(new Dictionary<string, object>());
 		}
 		public void Initialise(Dictionary<string, object> parameters)
 		{
-			this.parameters = parameters.ToExpando();
+			this.parameters = parameters.ToDynamic();
 		}
 		public void AddParameter(string parameterName, object parameterValue)
 		{

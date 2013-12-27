@@ -1,7 +1,7 @@
 ﻿Runner:
   Name: FileSystemWatchingRunner
   Parameters: 
-     FolderToWatch: F:\research\Watching\src
+     FolderToWatch: F:\ExistingDirectoryToWatch
 Plugins:
 - Name: MSBuild
 Notifications:
