@@ -22,7 +22,7 @@ namespace Jubilee.Core.Runners
 		{
 			notificationService.Notify(pluginToRun.GetType().Name, "Running", NotificationType.Information);
 			var succeeded = pluginToRun.Run();
-			notificationService.Notify(pluginToRun.GetType().Name, succeeded ? "Succeeded" : "Failed");
+			notificationService.Notify(pluginToRun.GetType().Name, succeeded ? "Succeeded" : "Failed", NotificationType.Information);
 			return succeeded;
 		}
 	}
