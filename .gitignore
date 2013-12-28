@@ -39,6 +39,7 @@ x64/
 /nuget/*.dll
 /nuget/*.exe
 /nuget/*.yaml
+/build_output/*
 
 # Visual C++ cache files
 ipch/

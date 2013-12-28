@@ -2,7 +2,7 @@
   Name: FileSystemWatchingRunner
   Parameters: 
      FolderToWatch: f:\SomeFolderToMonitorForChanges
-     Verbose: true
+     VerboseOutput: true
 Plugins:
 - Name: MSBuild
 Notifications:
