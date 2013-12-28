@@ -25,14 +25,15 @@ namespace Jubilee.Commands
 			var assemblyLocation = Assembly.GetExecutingAssembly().Location;
 			var directoryAssemblyLocatedIn = Path.GetDirectoryName(assemblyLocation);
 			var pathForNewPlugin = Path.Combine(directoryAssemblyLocatedIn, pluginName);
+			var configurationFilePath = Path.Combine(directoryAssemblyLocatedIn, "configuration.yaml");
 
 			ScriptCSTemplate template = new ScriptCSTemplate();
 			var transformedText = template.TransformText();
 			File.WriteAllText(pathForNewPlugin, transformedText);
 
-			if (File.Exists("configuration.yaml"))
+			if (File.Exists(configurationFilePath))
 			{
-				var configurationFile = File.ReadAllText("configuration.yaml");
+				var configurationFile = File.ReadAllText(configurationFilePath);
 				var configurationBuilder = new StringBuilder();
 				foreach (var configurationLine in configurationFile.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
 				{
@@ -42,7 +43,7 @@ namespace Jubilee.Commands
 						configurationBuilder.AppendLine("- Name: " + pathForNewPlugin);
 					}
 				}
-				File.WriteAllText("configuration.yaml", configurationBuilder.ToString());
+				File.WriteAllText(configurationFilePath, configurationBuilder.ToString());
 			}
 			Console.ForegroundColor = ConsoleColor.Green;
 			Console.WriteLine(pluginName + " has been created and added to the configuration.yaml");

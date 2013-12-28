@@ -6,8 +6,6 @@ namespace Jubilee.Core.Notifications
 	{
 		public void Notify(string title, string message = "", NotificationType notificationType = NotificationType.None)
 		{
-			var originalColor = System.Console.ForegroundColor;
-
 			switch (notificationType)
 			{
 				case NotificationType.Information:
@@ -28,12 +26,11 @@ namespace Jubilee.Core.Notifications
 			}
 
 			Console.WriteLine(title);
-
 			System.Console.ForegroundColor = ConsoleColor.White;
-			Console.WriteLine();
 			Console.WriteLine(message);
+			Console.WriteLine();
 
-			System.Console.ForegroundColor = originalColor;
+			Console.ResetColor();
 		}
 	}
 }
