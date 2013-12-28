@@ -21,25 +21,35 @@ namespace Jubilee.Core.Runners
 		private FileSystemWatcher fileSystemWatcher;
 		private string folderToWatch;
 		private INotificationService notificationService;
+		private IPluginRunner pluginRunner;
 		static string[] fileExtensionsWhiteList = new string[] { ".cs", ".coffee", ".rb", ".html", ".cshtml", ".js", ".css", ".fs" };
 		public FileSystemWatchingRunner(INotificationService notificationService, IPluginProvider pluginProvider)
 		{
 			this.notificationService = notificationService;
 			this.pluginProvider = pluginProvider;
+			this.pluginRunner = new PluginRunner();
 		}
 
 		public override bool Run()
 		{
-			Guard.AgainstException<RuntimeBinderException>(() => 
+			Guard.AgainstException<RuntimeBinderException>(() =>
 				this.folderToWatch = parameters.FolderToWatch,
-				"The FolderToWatch parameter was not found in the parameters. Ensure that the configuration file is correct.", 
-				notificationService);
+				"The FolderToWatch parameter was not found in the parameters. Ensure that the configuration file is correct.");
+
+			Guard.Catch<RuntimeBinderException>(() =>
+			{
+				if (bool.Parse(parameters.VerboseOutput))
+				{
+					pluginRunner = new VerboseOutputPluginRunner(pluginRunner, notificationService);
+				}
+			});
 
 			if (!Directory.Exists(folderToWatch))
 			{
 				notificationService.Notify(this.GetType().Name, String.Format("The directory {0} does not exist and cannot be watched", folderToWatch), NotificationType.Information);
 				return false;
 			}
+
 			fileSystemWatcher = new FileSystemWatcher(folderToWatch, "*.*");
 			fileSystemWatcher.IncludeSubdirectories = true;
 			fileSystemWatcher.EnableRaisingEvents = true;
@@ -68,15 +78,19 @@ namespace Jubilee.Core.Runners
 		private void Run(IPlugin plugin, Context context)
 		{
 			AddParametersForPlugin(plugin, context.ToDictionary());
-			notificationService.Notify(plugin.GetType().Name, "Running");
-			var canProcessDependentPlugins = plugin.Run();
+
+			var canProcessDependentPlugins = pluginRunner.RunPlugin(plugin);
+
 			if (!canProcessDependentPlugins)
 				return;
+
 			var dependentPlugins = pluginProvider.GetDependentPluginsOn(plugin);
-			foreach (dynamic dependentPlugin in dependentPlugins)
+
+			foreach (IPlugin dependentPlugin in dependentPlugins)
 			{
 				AddParametersForPlugin(dependentPlugin, context.ToDictionary());
-				dependentPlugin.Run();
+				if (!pluginRunner.RunPlugin(dependentPlugin))
+					return;
 			}
 		}
 
@@ -85,7 +99,7 @@ namespace Jubilee.Core.Runners
 			plugin.AddParameters(parameters);
 		}
 
-		private class Context
+		internal class Context
 		{
 			public string WorkingPath { get; set; }
 			public string ChangedFilePath { get; set; }

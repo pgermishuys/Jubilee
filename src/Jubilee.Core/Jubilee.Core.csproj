@@ -70,7 +70,10 @@
     <Compile Include="Extensions\TypeExtensions.cs" />
     <Compile Include="Guards\Guard.cs" />
     <Compile Include="Guards\GuardException.cs" />
+    <Compile Include="Runners\IPluginRunner.cs" />
     <Compile Include="Runners\IRunner.cs" />
+    <Compile Include="Runners\PluginRunner.cs" />
+    <Compile Include="Runners\VerboseOutputPluginRunner.cs" />
     <Compile Include="Workflow\IPluginProvider.cs" />
     <Compile Include="Notifications\NotificationType.cs" />
     <Compile Include="Workflow\PluginProvider.cs" />

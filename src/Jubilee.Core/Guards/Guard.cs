@@ -9,16 +9,26 @@ namespace Jubilee.Core.Guards
 {
 	public static class Guard
 	{
-		public static bool AgainstException<TException>(Action action, string message, INotificationService notificationService) where TException : Exception
+		public static void AgainstException<TException>(Action action, string message) where TException : Exception
 		{
 			try
 			{
 				action();
-				return true;
 			}
 			catch (TException)
 			{
 				throw new GuardException(message);
+			}
+		}
+
+		public static void Catch<TException>(Action action) where TException : Exception{
+			try
+			{
+				action();
+			}
+			catch (TException)
+			{
+				//shallow
 			}
 		}
 	}
