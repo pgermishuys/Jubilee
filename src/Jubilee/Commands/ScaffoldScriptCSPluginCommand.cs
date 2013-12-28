@@ -41,7 +41,7 @@ namespace Jubilee.Commands
 					configurationBuilder.AppendLine(configurationLine);
 					if (configurationLine.StartsWith("Plugins:"))
 					{
-						configurationBuilder.AppendLine("- Name: " + typeof(ScriptCSPlugin).Name);
+						configurationBuilder.AppendLine("- Name: " + typeof(ScriptCS).Name);
 						configurationBuilder.AppendLine("  Parameters:");
 						configurationBuilder.AppendLine("    ScriptName: " + pathForNewPlugin);
 					}

@@ -54,7 +54,9 @@ Runner:
   Parameters:
     FolderToWatch: f:\SomeFolderToMonitorForChanges
 Plugins:
-- Name: ConsoleWriter.csx
+- Name: ScriptCS
+  Parameters:
+     ScriptName: ConsoleWriter.csx
 Notifications:
 - Name: ConsoleNotification
 - Name: GrowlNotification

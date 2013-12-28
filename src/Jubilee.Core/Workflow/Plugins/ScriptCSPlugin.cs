@@ -11,10 +11,10 @@ using Jubilee.Core.Plugins;
 
 namespace Jubilee.Core.Workflow.Plugins
 {
-	public class ScriptCSPlugin : Plugin
+	public class ScriptCS : Plugin
 	{
 		private INotificationService notificationService;
-		public ScriptCSPlugin(INotificationService notificationService)
+		public ScriptCS(INotificationService notificationService)
 		{
 			this.notificationService = notificationService;
 		}

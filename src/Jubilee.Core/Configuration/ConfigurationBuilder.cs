@@ -82,7 +82,7 @@ namespace Jubilee.Core.Configuration
 
 		private void RegisterScriptCSPlugin(PluginConfiguration pluginConfiguration)
 		{
-			kernel.Bind<IPlugin>().To<ScriptCSPlugin>().OnActivation((activatedPlugin) =>
+			kernel.Bind<IPlugin>().To<ScriptCS>().OnActivation((activatedPlugin) =>
 			{
 				((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
 				((dynamic)activatedPlugin).AddParameter("ScriptName", pluginConfiguration.Name);
