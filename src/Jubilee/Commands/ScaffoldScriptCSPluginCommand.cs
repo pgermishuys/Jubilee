@@ -1,4 +1,5 @@
-﻿using Jubilee.Templates;
+﻿using Jubilee.Core.Workflow.Plugins;
+using Jubilee.Templates;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,7 +41,9 @@ namespace Jubilee.Commands
 					configurationBuilder.AppendLine(configurationLine);
 					if (configurationLine.StartsWith("Plugins:"))
 					{
-						configurationBuilder.AppendLine("- Name: " + pathForNewPlugin);
+						configurationBuilder.AppendLine("- Name: " + typeof(ScriptCSPlugin).Name);
+						configurationBuilder.AppendLine("  Parameters:");
+						configurationBuilder.AppendLine("    ScriptName: " + pathForNewPlugin);
 					}
 				}
 				File.WriteAllText(configurationFilePath, configurationBuilder.ToString());

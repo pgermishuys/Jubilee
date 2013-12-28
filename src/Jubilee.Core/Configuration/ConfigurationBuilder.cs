@@ -64,26 +64,19 @@ namespace Jubilee.Core.Configuration
 		}
 		public void RegisterPlugin(Type[] knownTypes, PluginConfiguration pluginConfiguration, IEnumerable<PluginConfiguration> pluginsConfiguration)
 		{
-			if (pluginConfiguration.Name.EndsWith("csx"))
+			var plugin = knownTypes.GetType(pluginConfiguration.Name);
+			kernel.Bind<IPlugin>().To(plugin).OnActivation((activatedPlugin) =>
 			{
-				RegisterScriptCSPlugin(pluginConfiguration);
-			}
-			else
+				((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
+			});
+			foreach (var pluginConfig in pluginsConfiguration)
 			{
-				var plugin = knownTypes.GetType(pluginConfiguration.Name);
-				kernel.Bind<IPlugin>().To(plugin).OnActivation((activatedPlugin) =>
+				var openGenericPluginType = typeof(IDependsOnPlugin<>);
+				var closedGenericPluginType = openGenericPluginType.MakeGenericType(plugin);
+				kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name == pluginConfig.Name)).OnActivation((activatedPlugin) =>
 				{
-					((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
+					((dynamic)activatedPlugin).Initialise(pluginConfig.Parameters);
 				});
-				foreach (var pluginConfig in pluginsConfiguration)
-				{
-					var openGenericPluginType = typeof(IDependsOnPlugin<>);
-					var closedGenericPluginType = openGenericPluginType.MakeGenericType(plugin);
-					kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name == pluginConfig.Name)).OnActivation((activatedPlugin) =>
-					{
-						((dynamic)activatedPlugin).Initialise(pluginConfig.Parameters);
-					});
-				}
 			}
 		}
 
