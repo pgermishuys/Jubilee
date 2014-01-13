@@ -20,7 +20,6 @@ namespace Jubilee
 				return new ScaffoldScriptCSPluginCommand(args.Scaffold);
 			}
 			return new RunJubileeCommand(args);
-			return new DisplayHelpCommand();
 		}
 	}
 }
