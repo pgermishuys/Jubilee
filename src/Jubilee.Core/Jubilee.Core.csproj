@@ -32,11 +32,29 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac">
+      <HintPath>..\packages\Autofac.3.1.5\lib\net40\Autofac.dll</HintPath>
+    </Reference>
+    <Reference Include="Autofac.Integration.Mef">
+      <HintPath>..\packages\Autofac.Mef.3.0.2\lib\net40\Autofac.Integration.Mef.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging.Log4Net">
+      <HintPath>..\packages\Common.Logging.Log4Net.2.0.1\lib\net20\Common.Logging.Log4Net.dll</HintPath>
+    </Reference>
     <Reference Include="Growl.Connector">
       <HintPath>..\packages\Growl.0.6\lib\Growl.Connector.dll</HintPath>
     </Reference>
     <Reference Include="Growl.CoreLibrary">
       <HintPath>..\packages\Growl.0.6\lib\Growl.CoreLibrary.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.1.2.10\lib\2.0\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.XmlTransform">
+      <HintPath>..\packages\Microsoft.Web.Xdt.1.0.0\lib\net40\Microsoft.Web.XmlTransform.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -44,7 +62,21 @@
     <Reference Include="Ninject">
       <HintPath>..\packages\Ninject.3.0.1.10\lib\net45-full\Ninject.dll</HintPath>
     </Reference>
+    <Reference Include="NuGet.Core, Version=2.7.41101.299, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NuGet.Core.2.7.2\lib\net40-Client\NuGet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Contracts">
+      <HintPath>..\packages\ScriptCs.Contracts.0.8.1\lib\net45\ScriptCs.Contracts.dll</HintPath>
+    </Reference>
+    <Reference Include="ScriptCs.Core">
+      <HintPath>..\packages\ScriptCs.Core.0.8.1\lib\net45\ScriptCs.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="ServiceStack.Text">
+      <HintPath>..\packages\ServiceStack.Text.3.9.71\lib\net35\ServiceStack.Text.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />

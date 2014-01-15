@@ -11,6 +11,13 @@ namespace Jubilee.Core.Configuration
 		public RunnerConfiguration Runner { get; protected set; }
 		public IEnumerable<PluginConfiguration> Plugins { get; protected set; }
 		public IEnumerable<NotificationConfiguration> Notifications { get; protected set; }
+        public IEnumerable<string> NonDependentPlugins
+        {
+            get
+            {
+                return Plugins.Where(x => String.IsNullOrEmpty(x.DependsOn)).Select(x => x.Name);
+            }
+        }
 		public ConfigurationSettings() { }
 		public ConfigurationSettings(RunnerConfiguration runnerConfiguration, IEnumerable<PluginConfiguration> pluginsConfiguration, IEnumerable<NotificationConfiguration> notificationsConfiguration)
 		{

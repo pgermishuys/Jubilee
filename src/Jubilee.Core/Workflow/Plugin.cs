@@ -43,5 +43,5 @@ namespace Jubilee.Core.Plugins
 			}
 		}
 		public abstract bool Run();
-	}
+    }
 }

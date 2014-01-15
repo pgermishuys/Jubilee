@@ -1,4 +1,5 @@
-﻿using Jubilee.Core.Plugins;
+﻿using Jubilee.Core.Configuration;
+using Jubilee.Core.Plugins;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -11,22 +12,23 @@ namespace Jubilee.Core.Process
 	public class PluginProvider : IPluginProvider
 	{
 		private IKernel kernel;
-		public PluginProvider(IKernel kernel)
+        private ConfigurationSettings configurationSettings;
+		public PluginProvider(IKernel kernel, ConfigurationSettings configurationSettings)
 		{
 			this.kernel = kernel;
+            this.configurationSettings = configurationSettings;
 		}
-		public IEnumerable<Plugins.IPlugin> GetAll()
+		public IEnumerable<IPlugin> GetNonDependentPlugins()
 		{
-			return kernel.GetAll<IPlugin>();
+			return kernel.GetAll<IPlugin>().Where(plugin => {
+                return configurationSettings.NonDependentPlugins.Contains(plugin.GetType().Name);
+            });
 		}
 
-		public IEnumerable<IPlugin> GetDependentPluginsOn(Plugins.IPlugin plugin)
+		public IEnumerable<IPlugin> GetPluginsThatDependOn(IPlugin plugin)
 		{
-			var openGenericType = typeof(IDependsOnPlugin<>);
-			var closedGenericType = openGenericType.MakeGenericType(plugin.GetType());
-			return kernel.GetAll(closedGenericType).Select(pluginObject => { 
-				return (IPlugin)pluginObject; 
-			});
+            var pluginsThatDependOn = configurationSettings.Plugins.Where(x => x.DependsOn == plugin.GetType().Name);
+            return kernel.GetAll<IPlugin>().Where(x => pluginsThatDependOn.Count(pluginConfig => pluginConfig.Name == x.GetType().Name) > 0);
 		}
 	}
 }

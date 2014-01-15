@@ -67,7 +67,7 @@ namespace Jubilee.Core.Runners
 			if (fileExtensionsWhiteList.Contains(Path.GetExtension(e.FullPath)) && System.IO.File.Exists(e.FullPath))
 			{
 				fileSystemWatcher.EnableRaisingEvents = false;
-				foreach (var plugin in pluginProvider.GetAll())
+				foreach (var plugin in pluginProvider.GetNonDependentPlugins())
 				{
 					Run(plugin, new Context(Path.GetDirectoryName(e.FullPath), e.FullPath));
 				}
@@ -79,18 +79,16 @@ namespace Jubilee.Core.Runners
 		{
 			AddParametersForPlugin(plugin, context.ToDictionary());
 
-			var canProcessDependentPlugins = pluginRunner.RunPlugin(plugin);
+			var canContinue = pluginRunner.RunPlugin(plugin);
 
-			if (!canProcessDependentPlugins)
+			if (!canContinue)
 				return;
 
-			var dependentPlugins = pluginProvider.GetDependentPluginsOn(plugin);
+			var dependentPlugins = pluginProvider.GetPluginsThatDependOn(plugin);
 
 			foreach (IPlugin dependentPlugin in dependentPlugins)
 			{
-				AddParametersForPlugin(dependentPlugin, context.ToDictionary());
-				if (!pluginRunner.RunPlugin(dependentPlugin))
-					return;
+                Run(dependentPlugin, context);
 			}
 		}
 

@@ -44,6 +44,8 @@ namespace Jubilee.Core.Configuration
 
 			var configurationSettings = serializer.Deserialize<ConfigurationSettings>(File.ReadAllText(settingsFilePath));
 
+            kernel.Bind<ConfigurationSettings>().ToConstant(configurationSettings);
+
 			var types = scanner.GetTypes(AppDomain.CurrentDomain.BaseDirectory, "*.dll", typeof(IPlugin), typeof(INotificationPlugin), typeof(IRunner));
 
 			var runnerType = types.GetType(configurationSettings.Runner.Name);
@@ -59,25 +61,16 @@ namespace Jubilee.Core.Configuration
 
 			foreach (var pluginConfiguration in configurationSettings.Plugins)
 			{
-				RegisterPlugin(types, pluginConfiguration, pluginConfiguration.DependentPlugins);
+				RegisterPlugin(types, pluginConfiguration, pluginConfiguration.DependsOn);
 			}
 		}
-		public void RegisterPlugin(Type[] knownTypes, PluginConfiguration pluginConfiguration, IEnumerable<PluginConfiguration> pluginsConfiguration)
+		public void RegisterPlugin(Type[] knownTypes, PluginConfiguration pluginConfiguration, string dependsOn)
 		{
 			var plugin = knownTypes.GetType(pluginConfiguration.Name);
 			kernel.Bind<IPlugin>().To(plugin).OnActivation((activatedPlugin) =>
 			{
 				((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
 			});
-			foreach (var pluginConfig in pluginsConfiguration)
-			{
-				var openGenericPluginType = typeof(IDependsOnPlugin<>);
-				var closedGenericPluginType = openGenericPluginType.MakeGenericType(plugin);
-				kernel.Bind(closedGenericPluginType).To(knownTypes.First(x => x.Name == pluginConfig.Name)).OnActivation((activatedPlugin) =>
-				{
-					((dynamic)activatedPlugin).Initialise(pluginConfig.Parameters);
-				});
-			}
 		}
 
 		private void RegisterScriptCSPlugin(PluginConfiguration pluginConfiguration)

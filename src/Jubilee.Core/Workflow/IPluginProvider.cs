@@ -9,7 +9,7 @@ namespace Jubilee.Core.Process
 {
 	public interface IPluginProvider
 	{
-		IEnumerable<IPlugin> GetAll();
-		IEnumerable<IPlugin> GetDependentPluginsOn(IPlugin plugin);
+		IEnumerable<IPlugin> GetNonDependentPlugins();
+		IEnumerable<IPlugin> GetPluginsThatDependOn(IPlugin plugin);
 	}
 }

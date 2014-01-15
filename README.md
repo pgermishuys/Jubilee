@@ -25,14 +25,15 @@ With Jubilee, you can define dependent plugins. Let's suppose you want to copy f
 Runner:
   Name: FileSystemWatchingRunner
   Parameters:
-    FolderToWatch: f:\SomeFolderToMonitorForChanges
+    FolderToWatch: c:\SomeFolderToMonitorForChanges
 Plugins:
 - Name: MSBuild
   DependentPlugins:
-  - Name: FileCopy
-    Parameters: 
-       From: f:\SomeDirectory
-       To: f:\SomeOtherDirectory
+- Name: FileCopy
+  DependsOn: MSBuild
+  Parameters: 
+    From: c:\SomeDirectory
+    To: c:\SomeOtherDirectory
 Notifications:
 - Name: ConsoleNotification
 - Name: GrowlNotification
