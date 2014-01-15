@@ -4,13 +4,11 @@
      FolderToWatch: F:\research\Watching\src
 Plugins:
 - Name: MSBuild
-- Name: MSpecTestRunner
-  DependsOn: MSBuild
 - Name: FileCopy
-  DependsOn: MSpecTestRunner
+  DependsOn: MSBuild
   Parameters: 
-    From: F:\research\Watching\src\SAHL.Core\SAHL.Core\bin\Debug
-    To: F:\research\Watching\src
+    From: c:\FromSomeFolder
+    To: c:\ToAnotherFolder
 Notifications:
 - Name: ConsoleNotification
 - Name: GrowlNotification
