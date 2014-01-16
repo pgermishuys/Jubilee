@@ -1,13 +1,13 @@
 ﻿Runner:
   Name: FileSystemWatchingRunner
   Parameters: 
-     FolderToWatch: F:\research\Watching\src
+     FolderToWatch: c:\FolderToWatch
 Plugins:
 - Name: MSBuild
 - Name: FileCopy
   DependsOn: MSBuild
-  Parameters: 
-    From: c:\FromSomeFolder
+  Parameters:
+    From: c:\FromOneFolder
     To: c:\ToAnotherFolder
 Notifications:
 - Name: ConsoleNotification

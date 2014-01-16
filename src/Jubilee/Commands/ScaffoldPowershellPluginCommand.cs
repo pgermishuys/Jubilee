@@ -10,27 +10,25 @@ using System.Threading.Tasks;
 
 namespace Jubilee.Commands
 {
-	public class ScaffoldScriptCSPluginCommand : ICommand
+	public class ScaffoldPowershellPluginCommand : ICommand
 	{
 		private string pluginName;
-		public ScaffoldScriptCSPluginCommand(string pluginName)
+        public ScaffoldPowershellPluginCommand(string pluginName)
 		{
-			this.pluginName = pluginName + ".csx";
+			this.pluginName = pluginName + ".ps1";
 		}
 
 		public void Execute()
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan;
-			Console.WriteLine("Scaffolding Jubilee scriptcs plugin");
+			Console.WriteLine("Scaffolding Jubilee powershell plugin");
 
 			var assemblyLocation = Assembly.GetExecutingAssembly().Location;
 			var directoryAssemblyLocatedIn = Path.GetDirectoryName(assemblyLocation);
 			var pathForNewPlugin = Path.Combine(directoryAssemblyLocatedIn, pluginName);
 			var configurationFilePath = Path.Combine(directoryAssemblyLocatedIn, "configuration.yaml");
 
-			ScriptCSTemplate template = new ScriptCSTemplate();
-			var transformedText = template.TransformText();
-			File.WriteAllText(pathForNewPlugin, transformedText);
+            File.WriteAllText(pathForNewPlugin, File.ReadAllText("Templates/PowershellTemplate.ps1"));
 
 			if (File.Exists(configurationFilePath))
 			{
@@ -41,7 +39,7 @@ namespace Jubilee.Commands
 					configurationBuilder.AppendLine(configurationLine);
 					if (configurationLine.StartsWith("Plugins:"))
 					{
-						configurationBuilder.AppendLine("- Name: " + typeof(ScriptCS).Name);
+						configurationBuilder.AppendLine("- Name: " + typeof(Powershell).Name);
 						configurationBuilder.AppendLine("  Parameters:");
 						configurationBuilder.AppendLine("    ScriptName: " + pathForNewPlugin);
 					}

@@ -71,6 +71,7 @@
     <Compile Include="Commands\DisplayHelpCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\RunJubileeCommand.cs" />
+    <Compile Include="Commands\ScaffoldPowershellPluginCommand.cs" />
     <Compile Include="Commands\ScaffoldScriptCSPluginCommand.cs" />
     <Compile Include="JubileeArgs.cs" />
     <Compile Include="Program.cs" />
@@ -88,6 +89,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+    <Content Include="Templates\PowershellTemplate.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Templates\ScriptCSTemplate.tt">
       <Generator>TextTemplatingFilePreprocessor</Generator>
       <LastGenOutput>ScriptCSTemplate.cs</LastGenOutput>
