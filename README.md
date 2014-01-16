@@ -73,3 +73,35 @@ Console.Write(ScriptArgs[2]); //The file that changed the kicked off the workflo
 
 Console.Error.WriteLine("failed"); // will produce an error in Jubilee
 ```
+
+##Powershell Support
+Jubilee has the ability to run powershell scripts. The contextual information, such as which directory is being watched as well as the file that changed will be passed to the script. (This is assuming the FileSystemWatchingRunner is being used).
+
+Scaffold a new Powershell Plugin
+
+```
+Jubilee.exe -p YourPluginName
+```
+
+Example Jubilee Powershell Configuration
+```
+Runner:
+  Name: FileSystemWatchingRunner
+  Parameters:
+    FolderToWatch: f:\SomeFolderToMonitorForChanges
+Plugins:
+- Name: Powershell
+  Parameters:
+     ScriptName: ConsoleWriter.ps1
+Notifications:
+- Name: ConsoleNotification
+- Name: GrowlNotification
+```
+
+Example Powershell script
+```
+param($ScriptName,$WorkingPath,$ChangedFilePath)
+Write-Output $ScriptName
+Write-Output $WorkingPath
+Write-Output $ChangedFilePath
+```
