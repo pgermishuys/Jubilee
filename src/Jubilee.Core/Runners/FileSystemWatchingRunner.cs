@@ -17,17 +17,17 @@ namespace Jubilee.Core.Runners
 {
 	public class FileSystemWatchingRunner : Runner
 	{
-		private IPluginProvider pluginProvider;
+		private ITaskProvider taskProvider;
 		private FileSystemWatcher fileSystemWatcher;
 		private string folderToWatch;
 		private INotificationService notificationService;
-		private IPluginRunner pluginRunner;
+		private ITaskRunner taskRunner;
 		static string[] fileExtensionsWhiteList = new string[] { ".cs", ".coffee", ".rb", ".html", ".cshtml", ".js", ".css", ".fs" };
-		public FileSystemWatchingRunner(INotificationService notificationService, IPluginProvider pluginProvider)
+		public FileSystemWatchingRunner(INotificationService notificationService, ITaskProvider pluginProvider)
 		{
 			this.notificationService = notificationService;
-			this.pluginProvider = pluginProvider;
-			this.pluginRunner = new PluginRunner();
+			this.taskProvider = pluginProvider;
+			this.taskRunner = new TaskRunner();
 		}
 
 		public override bool Run()
@@ -40,7 +40,7 @@ namespace Jubilee.Core.Runners
 			{
 				if (bool.Parse(parameters.VerboseOutput))
 				{
-					pluginRunner = new VerboseOutputPluginRunner(pluginRunner, notificationService);
+					taskRunner = new VerboseOutputPluginRunner(taskRunner, notificationService);
 				}
 			});
 
@@ -67,34 +67,34 @@ namespace Jubilee.Core.Runners
 			if (fileExtensionsWhiteList.Contains(Path.GetExtension(e.FullPath)) && System.IO.File.Exists(e.FullPath))
 			{
 				fileSystemWatcher.EnableRaisingEvents = false;
-				foreach (var plugin in pluginProvider.GetNonDependentPlugins())
+				foreach (var task in taskProvider.GetNonDependentTasks())
 				{
-					Run(plugin, new Context(Path.GetDirectoryName(e.FullPath), e.FullPath));
+					Run(task, new Context(Path.GetDirectoryName(e.FullPath), e.FullPath));
 				}
 				fileSystemWatcher.EnableRaisingEvents = true;
 			}
 		}
 
-		private void Run(IPlugin plugin, Context context)
+		private void Run(ITask task, Context context)
 		{
-			AddParametersForPlugin(plugin, context.ToDictionary());
+			AddParametersForTask(task, context.ToDictionary());
 
-			var canContinue = pluginRunner.RunPlugin(plugin);
+			var canContinue = taskRunner.RunTask(task);
 
 			if (!canContinue)
 				return;
 
-			var dependentPlugins = pluginProvider.GetPluginsThatDependOn(plugin);
+			var dependentTasks = taskProvider.GetTasksThatDependOn(task);
 
-			foreach (IPlugin dependentPlugin in dependentPlugins)
+			foreach (ITask dependentTask in dependentTasks)
 			{
-                Run(dependentPlugin, context);
+                Run(dependentTask, context);
 			}
 		}
 
-		private void AddParametersForPlugin(IPlugin plugin, Dictionary<string, object> parameters)
+		private void AddParametersForTask(ITask task, Dictionary<string, object> parameters)
 		{
-			plugin.AddParameters(parameters);
+			task.AddParameters(parameters);
 		}
 
 		internal class Context

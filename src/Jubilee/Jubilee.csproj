@@ -71,8 +71,8 @@
     <Compile Include="Commands\DisplayHelpCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\RunJubileeCommand.cs" />
-    <Compile Include="Commands\ScaffoldPowershellPluginCommand.cs" />
-    <Compile Include="Commands\ScaffoldScriptCSPluginCommand.cs" />
+    <Compile Include="Commands\ScaffoldPowershellTaskCommand.cs" />
+    <Compile Include="Commands\ScaffoldScriptCSTaskCommand.cs" />
     <Compile Include="JubileeArgs.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

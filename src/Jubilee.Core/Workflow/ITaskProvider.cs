@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Jubilee.Core.Process
 {
-	public interface IPluginProvider
+	public interface ITaskProvider
 	{
-		IEnumerable<IPlugin> GetNonDependentPlugins();
-		IEnumerable<IPlugin> GetPluginsThatDependOn(IPlugin plugin);
+		IEnumerable<ITask> GetNonDependentTasks();
+		IEnumerable<ITask> GetTasksThatDependOn(ITask plugin);
 	}
 }

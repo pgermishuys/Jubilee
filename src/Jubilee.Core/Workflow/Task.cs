@@ -9,15 +9,17 @@ using Jubilee.Core.Runners;
 
 namespace Jubilee.Core.Plugins
 {
-	public abstract class Plugin : IPlugin
+	public abstract class Task : ITask
 	{
+        public string Name { get; protected set; }
 		protected dynamic parameters;
-		public Plugin()
+		public Task()
 		{
 			parameters = new ExpandoObject();
 		}
-		public void Initialise(Dictionary<string, object> parameters)
+		public void Initialise(string name, Dictionary<string, object> parameters)
 		{
+            this.Name = name;
 			this.parameters = parameters.ToExpando();
 		}
 		public void AddParameters(Dictionary<string, object> parameters)

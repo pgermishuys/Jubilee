@@ -1,4 +1,4 @@
-﻿using Jubilee.Core.Workflow.Plugins;
+﻿using Jubilee.Core.Workflow.Tasks;
 using Jubilee.Templates;
 using System;
 using System.Collections.Generic;
@@ -10,25 +10,25 @@ using System.Threading.Tasks;
 
 namespace Jubilee.Commands
 {
-	public class ScaffoldPowershellPluginCommand : ICommand
+	public class ScaffoldPowershellTaskCommand : ICommand
 	{
-		private string pluginName;
-        public ScaffoldPowershellPluginCommand(string pluginName)
+		private string taskName;
+        public ScaffoldPowershellTaskCommand(string taskName)
 		{
-			this.pluginName = pluginName + ".ps1";
+			this.taskName = taskName + ".ps1";
 		}
 
 		public void Execute()
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan;
-			Console.WriteLine("Scaffolding Jubilee powershell plugin");
+			Console.WriteLine("Scaffolding Jubilee powershell task");
 
 			var assemblyLocation = Assembly.GetExecutingAssembly().Location;
 			var directoryAssemblyLocatedIn = Path.GetDirectoryName(assemblyLocation);
-			var pathForNewPlugin = Path.Combine(directoryAssemblyLocatedIn, pluginName);
+			var pathForNewTask = Path.Combine(directoryAssemblyLocatedIn, taskName);
 			var configurationFilePath = Path.Combine(directoryAssemblyLocatedIn, "configuration.yaml");
 
-            File.WriteAllText(pathForNewPlugin, File.ReadAllText("Templates/PowershellTemplate.ps1"));
+            File.WriteAllText(pathForNewTask, File.ReadAllText("Templates/PowershellTemplate.ps1"));
 
 			if (File.Exists(configurationFilePath))
 			{
@@ -37,17 +37,18 @@ namespace Jubilee.Commands
 				foreach (var configurationLine in configurationFile.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
 				{
 					configurationBuilder.AppendLine(configurationLine);
-					if (configurationLine.StartsWith("Plugins:"))
+					if (configurationLine.StartsWith("Tasks:"))
 					{
-						configurationBuilder.AppendLine("- Name: " + typeof(Powershell).Name);
+						configurationBuilder.AppendLine("- Name: " + Guid.NewGuid());
+                        configurationBuilder.AppendLine("  Task: " + typeof(Powershell).Name);
 						configurationBuilder.AppendLine("  Parameters:");
-						configurationBuilder.AppendLine("    ScriptName: " + pathForNewPlugin);
+						configurationBuilder.AppendLine("    ScriptName: " + pathForNewTask);
 					}
 				}
 				File.WriteAllText(configurationFilePath, configurationBuilder.ToString());
 			}
 			Console.ForegroundColor = ConsoleColor.Green;
-			Console.WriteLine(pluginName + " has been created and added to the configuration.yaml");
+			Console.WriteLine(taskName + " has been created and added to the configuration.yaml");
 			Console.ResetColor();
 		}
 	}

@@ -7,14 +7,14 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace Jubilee.Core.Workflow.Plugins
+namespace Jubilee.Core.Workflow.Tasks
 {
-	public class MSpecTestRunner : Plugin
+	public class NUnitTestRunner : Task
 	{
-		private string testRunnerExecutableName = @"mspec-clr4.exe";
+		private string testRunnerExecutableName = @"nunit-console-x86.exe";
 		private INotificationService notificationService;
 
-		public MSpecTestRunner(INotificationService notificationService)
+		public NUnitTestRunner(INotificationService notificationService)
 		{
 			this.notificationService = notificationService;
 		}
@@ -45,10 +45,9 @@ namespace Jubilee.Core.Workflow.Plugins
 			{
 				var processOutput = RunProcess(testRunnerPath, testAssembly);
 				var specificationResults = ParseResultsFromTest(processOutput);
-				numberOfTestsFailed = specificationResults.Count();
 				if (numberOfTestsFailed > 0)
 				{
-					notificationService.Notify(String.Format("(Machine Specifications) - {0} contains failing tests", Path.GetFileName(testAssembly)), message: String.Format("{0} tests failed", numberOfTestsFailed), notificationType: NotificationType.Error);
+					notificationService.Notify(String.Format("(NUnit) - {0} contains failing tests", Path.GetFileName(testAssembly)), message: String.Format("{0} tests failed", numberOfTestsFailed), notificationType: NotificationType.Error);
 				}
 				foreach (var specificationResult in specificationResults)
 				{
@@ -104,11 +103,6 @@ namespace Jubilee.Core.Workflow.Plugins
 
 			foreach (string line in output.Output.Split(new string[] { Environment.NewLine }, StringSplitOptions.None))
 			{
-				if (Regex.Match(line, "Contexts:").Success)
-				{
-					break;
-				}
-
 				if (Regex.Match(line, "Failures:").Success)
 				{
 					startParsingResults = true;
@@ -128,24 +122,16 @@ namespace Jubilee.Core.Workflow.Plugins
 					continue;
 				}
 
-				if (String.IsNullOrEmpty(context))
+				if (Regex.Match(line, "Test Failure : ").Success)
 				{
-					context = line;
+					context = line.Replace("Test Failure : ", "");
 					continue;
 				}
 
-				if (Regex.Match(line, "(FAIL)").Success)
+				if (!String.IsNullOrEmpty(context))
 				{
-					specification = line.Replace("(FAIL)", "");
-					continue;
+					detail += line + Environment.NewLine;
 				}
-
-				if (String.IsNullOrEmpty(specification))
-				{
-					continue;
-				}
-
-				detail += line + Environment.NewLine;
 			}
 			return specificationResults;
 		}

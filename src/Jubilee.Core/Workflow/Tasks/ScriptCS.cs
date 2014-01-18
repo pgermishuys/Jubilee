@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using process = System.Diagnostics;
 using Jubilee.Core.Notifications;
 using Newtonsoft.Json;
 using Jubilee.Core.Plugins;
 
-namespace Jubilee.Core.Workflow.Plugins
+namespace Jubilee.Core.Workflow.Tasks
 {
-	public class ScriptCS : Plugin
+	public class ScriptCS : Task
 	{
 		private INotificationService notificationService;
 		public ScriptCS(INotificationService notificationService)

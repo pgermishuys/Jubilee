@@ -4,11 +4,10 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Jubilee.Core.Workflow.Plugins
+namespace Jubilee.Core.Workflow.Tasks
 {
-	public class FileCopy : Plugin
+	public class FileCopy : Task
 	{
 		public override bool Run()
 		{

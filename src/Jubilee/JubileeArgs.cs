@@ -15,11 +15,11 @@ namespace Jubilee
 		public bool Help { get; set; }
 
 		[ArgShortcut("s")]
-        [ArgDescription("scaffolds a new ScriptCS Jubilee plugin.")]
-		public string ScaffoldScriptCSPlugin { get; set; }
+        [ArgDescription("scaffolds a new ScriptCS Jubilee task.")]
+		public string ScaffoldScriptCSTask { get; set; }
 
         [ArgShortcut("p")]
-        [ArgDescription("scaffolds a new Powershell Jubilee plugin.")]
-        public string ScaffoldPowershellPlugin { get; set; }
+        [ArgDescription("scaffolds a new Powershell Jubilee task.")]
+        public string ScaffoldPowershellTask { get; set; }
 	}
 }

@@ -15,13 +15,13 @@ namespace Jubilee
 			{
 				return new DisplayHelpCommand();
 			}
-			if (!String.IsNullOrEmpty(args.ScaffoldScriptCSPlugin))
+			if (!String.IsNullOrEmpty(args.ScaffoldScriptCSTask))
 			{
-				return new ScaffoldScriptCSPluginCommand(args.ScaffoldScriptCSPlugin);
+				return new ScaffoldScriptCSTaskCommand(args.ScaffoldScriptCSTask);
 			}
-            if (!String.IsNullOrEmpty(args.ScaffoldPowershellPlugin))
+            if (!String.IsNullOrEmpty(args.ScaffoldPowershellTask))
             {
-                return new ScaffoldPowershellPluginCommand(args.ScaffoldPowershellPlugin);
+                return new ScaffoldPowershellTaskCommand(args.ScaffoldPowershellTask);
             }
 			return new RunJubileeCommand(args);
 		}

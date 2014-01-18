@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Jubilee.Core.Runners
 {
-	internal class PluginRunner : IPluginRunner
+	internal interface ITaskRunner
 	{
-		public bool RunPlugin(IPlugin plugin)
-		{
-			return plugin.Run();
-		}
+		bool RunTask(ITask pluginToRun);
 	}
 }

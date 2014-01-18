@@ -7,12 +7,11 @@ using System.Linq;
 using System.Management.Automation;
 using System.Management.Automation.Runspaces;
 using System.Text;
-using System.Threading.Tasks;
 using process = System.Diagnostics;
 
-namespace Jubilee.Core.Workflow.Plugins
+namespace Jubilee.Core.Workflow.Tasks
 {
-    public class Powershell : Plugin
+    public class Powershell : Task
     {
         private INotificationService notificationService;
         public Powershell(INotificationService notificationService)

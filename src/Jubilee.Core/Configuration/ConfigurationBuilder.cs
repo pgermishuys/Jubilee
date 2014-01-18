@@ -17,7 +17,7 @@ using Jubilee.Core.Extensions;
 using Jubilee.Core.Scanners;
 using Jubilee.Core.Process;
 using Jubilee.Core.Runners;
-using Jubilee.Core.Workflow.Plugins;
+using Jubilee.Core.Workflow.Tasks;
 
 namespace Jubilee.Core.Configuration
 {
@@ -40,18 +40,18 @@ namespace Jubilee.Core.Configuration
 				throw new Exception(String.Format("The settings file provided does not exist in the following location : {0}", settingsFilePath));
 			}
 
-			kernel.Bind<IPluginProvider>().To<PluginProvider>();
+			kernel.Bind<ITaskProvider>().To<TaskProvider>();
 
 			var configurationSettings = serializer.Deserialize<ConfigurationSettings>(File.ReadAllText(settingsFilePath));
 
             kernel.Bind<ConfigurationSettings>().ToConstant(configurationSettings);
 
-			var types = scanner.GetTypes(AppDomain.CurrentDomain.BaseDirectory, "*.dll", typeof(IPlugin), typeof(INotificationPlugin), typeof(IRunner));
+			var types = scanner.GetTypes(AppDomain.CurrentDomain.BaseDirectory, "*.dll", typeof(ITask), typeof(INotificationPlugin), typeof(IRunner));
 
 			var runnerType = types.GetType(configurationSettings.Runner.Name);
-			kernel.Bind<IRunner>().To(runnerType).OnActivation((activatedPlugin) =>
+			kernel.Bind<IRunner>().To(runnerType).OnActivation((activatedTask) =>
 			{
-				((dynamic)activatedPlugin).Initialise(configurationSettings.Runner.Parameters);
+				((dynamic)activatedTask).Initialise(configurationSettings.Runner.Parameters);
 			});
 
 			foreach (var notificationConfiguration in configurationSettings.Notifications)
@@ -59,26 +59,17 @@ namespace Jubilee.Core.Configuration
 				RegisterNotification(types, notificationConfiguration);
 			}
 
-			foreach (var pluginConfiguration in configurationSettings.Plugins)
+			foreach (var taskConfiguration in configurationSettings.Tasks)
 			{
-				RegisterPlugin(types, pluginConfiguration, pluginConfiguration.DependsOn);
+				RegisterTask(types, taskConfiguration, taskConfiguration.DependsOn);
 			}
 		}
-		public void RegisterPlugin(Type[] knownTypes, PluginConfiguration pluginConfiguration, string dependsOn)
+		public void RegisterTask(Type[] knownTypes, TaskConfiguration taskConfiguration, string dependsOn)
 		{
-			var plugin = knownTypes.GetType(pluginConfiguration.Name);
-			kernel.Bind<IPlugin>().To(plugin).OnActivation((activatedPlugin) =>
+			var task = knownTypes.GetType(taskConfiguration.Task);
+			kernel.Bind<ITask>().To(task).Named(taskConfiguration.Name).OnActivation((activatedTask) =>
 			{
-				((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
-			});
-		}
-
-		private void RegisterScriptCSPlugin(PluginConfiguration pluginConfiguration)
-		{
-			kernel.Bind<IPlugin>().To<ScriptCS>().OnActivation((activatedPlugin) =>
-			{
-				((dynamic)activatedPlugin).Initialise(pluginConfiguration.Parameters);
-				((dynamic)activatedPlugin).AddParameter("ScriptName", pluginConfiguration.Name);
+				((dynamic)activatedTask).Initialise(taskConfiguration.Name, taskConfiguration.Parameters);
 			});
 		}
 
@@ -87,6 +78,7 @@ namespace Jubilee.Core.Configuration
 			var notificationType = knownTypes.GetType(notificationConfiguration.Name);
 			kernel.Bind<INotificationPlugin>().To(notificationType);
 		}
+
 		public IRunner Build()
 		{
 			kernel.Bind<INotificationService>().To<NotificationService>();

@@ -2,10 +2,12 @@
   Name: FileSystemWatchingRunner
   Parameters: 
      FolderToWatch: c:\FolderToWatch
-Plugins:
-- Name: MSBuild
-- Name: FileCopy
-  DependsOn: MSBuild
+Tasks:
+- Name: BuildingSolution
+  Task: MSBuild
+- Name: CopyBinaries
+  Task: FileCopy 
+  DependsOn: BuildingSolution
   Parameters:
     From: c:\FromOneFolder
     To: c:\ToAnotherFolder

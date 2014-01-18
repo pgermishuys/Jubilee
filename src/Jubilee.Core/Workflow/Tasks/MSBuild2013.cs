@@ -6,22 +6,22 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 
-namespace Jubilee.Core.Workflow.Plugins
+namespace Jubilee.Core.Workflow.Tasks
 {
-	public class MSBuild : Plugin
+	public class MSBuild2013 : Task
 	{
 		private const string buildArguments = "/verbosity:quiet /nologo /clp:ErrorsOnly";
-		private const string net4MSBuildPath = @"C:\Windows\Microsoft.NET\Framework\v4.0.30319\msbuild.exe";
+		private const string net4MSBuildPath = @"C:\Program Files (x86)\MSBuild\12.0\Bin\msbuild.exe";
 
 		private INotificationService notificationService;
-		public MSBuild(INotificationService notificationService)
+		public MSBuild2013(INotificationService notificationService)
 		{
 			this.notificationService = notificationService;
 		}
 
 		public override bool Run()
 		{
-			string solutionPath = FindSolutionFile(parameters.WorkingPath, "*.sln");
+            string solutionPath = FindSolutionFile(parameters.WorkingPath, "*.sln");
 			if (String.IsNullOrEmpty(solutionPath))
 			{
 				throw new FileNotFoundException("Solution File could not be found");
@@ -31,25 +31,7 @@ namespace Jubilee.Core.Workflow.Plugins
 
 		private string FindSolutionFile(string workingPath, string solutionExtension)
 		{
-			var solutionDirectory = DirectorySearch(workingPath, solutionExtension);
-			return Directory.GetFiles(solutionDirectory, solutionExtension).FirstOrDefault();
-		}
-
-		private string DirectorySearch(string directoryToSearch, string solutionExtension)
-		{
-			if (new DirectoryInfo(directoryToSearch).Parent == null)
-			{
-				return null;
-			}
-			if (Directory.GetFiles(directoryToSearch, solutionExtension).Count() == 0)
-			{
-				var parentDirectory = Directory.GetParent(directoryToSearch);
-				return DirectorySearch(parentDirectory.FullName, solutionExtension);
-			}
-			else
-			{
-				return directoryToSearch;
-			}
+			return Directory.GetFiles(workingPath, solutionExtension).FirstOrDefault();
 		}
 
 		private bool BuildSolution(string solutionFilePath, string buildArguments)
@@ -82,5 +64,5 @@ namespace Jubilee.Core.Workflow.Plugins
 			}
 			return result;
 		}
-    }
+	}
 }

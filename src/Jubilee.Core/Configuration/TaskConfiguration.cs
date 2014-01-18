@@ -6,16 +6,18 @@ using System.Threading.Tasks;
 
 namespace Jubilee.Core.Configuration
 {
-	public class PluginConfiguration
+	public class TaskConfiguration
 	{
-		public string Name { get; protected set; }
+		public string Task { get; protected set; }
+        public string Name { get; protected set; }
 		public Dictionary<string, object> Parameters { get; set; }
 		public string DependsOn { get; protected set; }
-		public PluginConfiguration() {
+		public TaskConfiguration() {
 		}
-        public PluginConfiguration(string name, Dictionary<string, object> parameters, string dependsOn)
+        public TaskConfiguration(string name, string task, Dictionary<string, object> parameters, string dependsOn)
 		{
-			this.Name = name;
+            this.Name = name;
+            this.Task = task;
 			this.Parameters = parameters;
 			this.DependsOn = dependsOn;
 		}
