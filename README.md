@@ -27,10 +27,11 @@ Runner:
   Parameters:
     FolderToWatch: c:\SomeFolderToMonitorForChanges
 Plugins:
-- Name: MSBuild
-  DependentPlugins:
-- Name: FileCopy
-  DependsOn: MSBuild
+- Name: BuildSolution
+  Task: MSBuild
+- Name: CopyBinariesFromOneLocationToAnother
+  Task: FileCopy
+  DependsOn: BuildSolution
   Parameters: 
     From: c:\SomeDirectory
     To: c:\SomeOtherDirectory
@@ -57,7 +58,8 @@ Runner:
   Parameters:
     FolderToWatch: f:\SomeFolderToMonitorForChanges
 Plugins:
-- Name: ScriptCS
+- Name: ScriptCSConsoleWriter
+  Task: ScriptCS
   Parameters:
      ScriptName: ConsoleWriter.csx
 Notifications:
@@ -90,7 +92,8 @@ Runner:
   Parameters:
     FolderToWatch: f:\SomeFolderToMonitorForChanges
 Plugins:
-- Name: Powershell
+- Name: WritingToTheConsole
+  Task: Powershell
   Parameters:
      ScriptName: ConsoleWriter.ps1
 Notifications:
