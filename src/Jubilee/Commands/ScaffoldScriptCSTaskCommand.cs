@@ -42,7 +42,7 @@ namespace Jubilee.Commands
 					if (configurationLine.StartsWith("Tasks:"))
 					{
                         configurationBuilder.AppendLine("- Name: " + this.taskName);
-                        configurationBuilder.AppendLine("  Task: " + typeof(Powershell).Name);
+                        configurationBuilder.AppendLine("  Task: " + typeof(ScriptCS).Name);
 						configurationBuilder.AppendLine("  Parameters:");
 						configurationBuilder.AppendLine("    ScriptName: " + pathForNewTask);
 					}
