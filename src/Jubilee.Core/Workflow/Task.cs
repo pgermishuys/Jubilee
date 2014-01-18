@@ -7,7 +7,7 @@ using Jubilee.Core.Extensions;
 using System.Dynamic;
 using Jubilee.Core.Runners;
 
-namespace Jubilee.Core.Plugins
+namespace Jubilee.Core.Tasks
 {
 	public abstract class Task : ITask
 	{

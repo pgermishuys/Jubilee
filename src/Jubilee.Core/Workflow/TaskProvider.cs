@@ -1,5 +1,5 @@
 ﻿using Jubilee.Core.Configuration;
-using Jubilee.Core.Plugins;
+using Jubilee.Core.Tasks;
 using Ninject;
 using System;
 using System.Collections.Generic;

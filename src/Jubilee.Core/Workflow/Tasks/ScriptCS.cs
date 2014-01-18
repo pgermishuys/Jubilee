@@ -6,7 +6,7 @@ using System.Diagnostics;
 using process = System.Diagnostics;
 using Jubilee.Core.Notifications;
 using Newtonsoft.Json;
-using Jubilee.Core.Plugins;
+using Jubilee.Core.Tasks;
 
 namespace Jubilee.Core.Workflow.Tasks
 {

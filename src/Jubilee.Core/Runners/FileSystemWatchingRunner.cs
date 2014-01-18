@@ -1,4 +1,4 @@
-﻿using Jubilee.Core.Plugins;
+﻿using Jubilee.Core.Tasks;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -23,10 +23,10 @@ namespace Jubilee.Core.Runners
 		private INotificationService notificationService;
 		private ITaskRunner taskRunner;
 		static string[] fileExtensionsWhiteList = new string[] { ".cs", ".coffee", ".rb", ".html", ".cshtml", ".js", ".css", ".fs" };
-		public FileSystemWatchingRunner(INotificationService notificationService, ITaskProvider pluginProvider)
+		public FileSystemWatchingRunner(INotificationService notificationService, ITaskProvider taskProvider)
 		{
 			this.notificationService = notificationService;
-			this.taskProvider = pluginProvider;
+			this.taskProvider = taskProvider;
 			this.taskRunner = new TaskRunner();
 		}
 

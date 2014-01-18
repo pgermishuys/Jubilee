@@ -1,5 +1,5 @@
 ﻿using Jubilee.Core.Notifications;
-using Jubilee.Core.Plugins;
+using Jubilee.Core.Tasks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,19 +10,19 @@ namespace Jubilee.Core.Runners
 {
 	internal class VerboseOutputPluginRunner : ITaskRunner
 	{
-		private ITaskRunner pluginRunner;
+		private ITaskRunner taskRunner;
 		private INotificationService notificationService;
-		public VerboseOutputPluginRunner(ITaskRunner pluginRunner, INotificationService notificationService)
+		public VerboseOutputPluginRunner(ITaskRunner taskRunner, INotificationService notificationService)
 		{
-			this.pluginRunner = pluginRunner;
+			this.taskRunner = taskRunner;
 			this.notificationService = notificationService;
 		}
 
-		public bool RunTask(ITask pluginToRun)
+		public bool RunTask(ITask taskToRun)
 		{
-			notificationService.Notify(pluginToRun.GetType().Name, "Running", NotificationType.Information);
-			var succeeded = pluginToRun.Run();
-			notificationService.Notify(pluginToRun.GetType().Name, succeeded ? "Succeeded" : "Failed", NotificationType.Information);
+			notificationService.Notify(taskToRun.GetType().Name, "Running", NotificationType.Information);
+			var succeeded = taskToRun.Run();
+			notificationService.Notify(taskToRun.GetType().Name, succeeded ? "Succeeded" : "Failed", NotificationType.Information);
 			return succeeded;
 		}
 	}

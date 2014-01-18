@@ -1,5 +1,4 @@
 ﻿using Jubilee.Core.Notifications;
-using Jubilee.Core.Plugins;
 using Jubilee.Core.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -18,6 +17,7 @@ using Jubilee.Core.Scanners;
 using Jubilee.Core.Process;
 using Jubilee.Core.Runners;
 using Jubilee.Core.Workflow.Tasks;
+using Jubilee.Core.Tasks;
 
 namespace Jubilee.Core.Configuration
 {

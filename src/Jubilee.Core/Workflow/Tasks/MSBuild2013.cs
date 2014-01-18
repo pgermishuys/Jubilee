@@ -1,5 +1,5 @@
 ﻿using Jubilee.Core.Notifications;
-using Jubilee.Core.Plugins;
+using Jubilee.Core.Tasks;
 using Ninject;
 using System;
 using System.Diagnostics;
